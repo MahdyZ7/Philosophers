@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 08:45:04 by ayassin           #+#    #+#             */
-/*   Updated: 2022/06/20 11:55:24 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/06/20 18:49:24 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	calc_time(t_bag *my_bag)
 {
 	gettimeofday(&(my_bag->end), NULL);
 	my_bag->time = time_diff(&(my_bag->end), &(my_bag->start));
-	if (my_bag->time > my_bag->death_clock)
-		my_bag->time = -1;
+	if (my_bag->time * 1000 > my_bag->death_clock)
+		my_bag->time *= -1;
 	return (0);
 }
 
@@ -38,6 +38,7 @@ void	loopy_philo(t_bag *my_bag)
 		pthread_mutex_unlock(my_bag->common_lock);
 		usleep(my_bag->time_to_eat);
 		my_bag->death_clock += my_bag->time_to_die; //position is uncertian
+		
 		//--------------
 		calc_time(my_bag);
 		pthread_mutex_lock(my_bag->common_lock);

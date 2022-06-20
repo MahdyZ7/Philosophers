@@ -8,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Sun Jun 19 09:45:06 2022
+# Make data base, printed on Mon Jun 20 18:21:39 2022
 
 # Variables
 
@@ -17,7 +17,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # automatic
 ?F = $(notdir $?)
 # makefile (from `Makefile', line 17)
-SRC = philosophers.c
+SRC = philosophers.c philosophers_utils.c philo_life.c
 # environment
 VSCODE_LOG_NATIVE = false
 # automatic
@@ -35,7 +35,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # environment
 _ = /usr/bin/make
 # makefile (from `Makefile', line 23)
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -pthread
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # environment
@@ -43,13 +43,13 @@ VSCODE_VERBOSE_LOGGING = true
 # makefile (from `Makefile', line 27)
 OBJS = $(SRC:.c=.o)
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cbym0032zn/T/vscode-ipc-84c156a9-0daa-44a9-ba8d-3936917a868a.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cbym0032zn/T/vscode-ipc-effab5ef-f673-4a6f-8821-4f2dec05e4fb.sock
 # environment
 VSCODE_CWD = /
 # environment
 PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Users/ayassin/Desktop/42-ValgrindContainer
 # environment
-LaunchInstanceID = 6354CE72-4369-48A3-B56B-A3E1D70B2BB8
+LaunchInstanceID = 9B7748D5-7A40-46DA-8505-0FB5FFADF90F
 # environment
 VSCODE_LOG_STACK = false
 # environment
@@ -57,7 +57,7 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.jRCl0bVsYu/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.v2X4sR9fO9/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -125,7 +125,7 @@ MFLAGS = -Rrqp
 # environment
 MAIL = ayassin@student.42abudhabi.ae
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000008.Electron
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000001.Electron
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -141,7 +141,7 @@ MAKEFILES :=
 # environment
 LC_ALL = C
 # environment
-SECURITYSESSIONID = 186bd
+SECURITYSESSIONID = 186a8
 # automatic
 ^F = $(notdir $^)
 # default
@@ -155,7 +155,7 @@ SUBDIRS = libft ft_printf
 # environment
 LANG = C
 # environment
-VSCODE_PID = 62861
+VSCODE_PID = 1630
 # variable set hash-table stats:
 # Load=72/1024=7%, Rehash=0, Collisions=3/100=3%
 
@@ -165,9 +165,9 @@ VSCODE_PID = 62861
 
 # Directories
 
-# . (device 16777225, inode 1845247): 9 files, no impossibilities.
+# . (device 16777225, inode 1845247): 11 files, no impossibilities.
 
-# 9 files, no impossibilities in 1 directories.
+# 11 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -190,6 +190,12 @@ all: philosophers
 #  File has not been updated.
 
 # Not a target:
+philosophers_utils.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 .SUFFIXES:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -198,7 +204,7 @@ all: philosophers
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-19 09:44:31
+#  Last modified 2022-06-20 11:36:01
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -241,7 +247,7 @@ philosophers.o:
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-philosophers: philosophers.o
+philosophers: philosophers.o philosophers_utils.o philo_life.o
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
@@ -272,8 +278,14 @@ clean:
 	done
 	
 
+# Not a target:
+philo_life.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
 # files hash-table stats:
-# Load=11/1024=1%, Rehash=0, Collisions=0/33=0%
+# Load=13/1024=1%, Rehash=0, Collisions=0/37=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -285,7 +297,7 @@ clean:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sun Jun 19 09:45:06 2022
+# Finished Make data base on Mon Jun 20 18:21:39 2022
 
  
 make: *** No rule to make target `philosophers.o', needed by `philosophers'.  Stop.

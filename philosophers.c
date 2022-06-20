@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:43 by ayassin           #+#    #+#             */
-/*   Updated: 2022/06/20 11:52:35 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/06/20 18:31:00 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	main(int argv, char **argc)
 		> philosophers.time_to_die || philosophers.population < 2)
 		ft_printf("A philosopher will definitly die\n");
 	else
-		ft_printf("All GOOD %d %d\n", philosophers.time_to_die / philosophers.time_to_eat, philosophers.population);
+		ft_printf("All GOOD %d %d\n", philosophers.time_to_die / philosophers.time_to_eat, philosophers.time_to_die);
 	// mock_pilosophers(&philosophers);
 	creat_philos(&philosophers);
 	return (0);
