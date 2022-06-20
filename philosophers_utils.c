@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:47:53 by ayassin           #+#    #+#             */
-/*   Updated: 2022/06/19 14:17:09 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/06/20 11:58:43 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,17 @@ int	minitalk_atoi(char *str, int *valid_flag)
 	return (num);
 }
 
-int	print(int time, int id, char *task, char *color)
+int	print_task(t_bag *bag, char *task, char *color)
 {
 	//check if somone has died
-	ft_printf("%s%d %d %s\n%s", color, time, id, task, RESET_COLOR);
+	if (*(bag->death) == 1)
+		return (1);
+	if (bag->time == -1)
+	{
+		*(bag->death) = 1;
+		ft_printf("%s%d %d %s\n%s", BLACK, bag->time, bag->id, "is dead", RESET_COLOR);
+		return (1);
+	}
+	ft_printf("%s%d %d %s\n%s", color, bag->time, bag->id, task, RESET_COLOR);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:40 by ayassin           #+#    #+#             */
-/*   Updated: 2022/06/19 16:15:41 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/06/20 11:24:03 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 #  define YELLOW "\033[0;33m"
 #  define BLUE "\033[0;34m"
 #  define PURPLE "\033[0;35m"
-#  define CYANE "\033[0;36m"
+#  define CYAN "\033[0;36m"
 #  define WHITE "\033[0;37m"
 #  define RESET_COLOR "\033[0m"
 # endif
@@ -43,17 +43,26 @@ typedef struct s_philos
 
 typedef struct s_bag
 {
+	int	id;
+	int	death_clock;
 	int	time_to_die;
 	int	time_to_eat;
 	int	time_to_sleep;
+	int	max_no_of_meals;
 	int	no_of_meals;
-	int	odd;
+	int	type;
+	int	time;
+	int	*death;
 	struct timeval	start;
 	struct timeval	end;
 	pthread_mutex_t	*common_lock;
 }				t_bag;
 
-int	time_diff(struct timeval *end, struct timeval *start);
-int	minitalk_atoi(char *str, int *valid_flag);
+int		time_diff(struct timeval *end, struct timeval *start);
+int		minitalk_atoi(char *str, int *valid_flag);
+int		print_task(t_bag *bag, char *task, char *color);
+
+void	loopy_philo(t_bag *my_bag);
+void	*life_cycle(void *bag);
 
 #endif

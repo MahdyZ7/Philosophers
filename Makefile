@@ -6,7 +6,7 @@
 #    By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/22 13:02:34 by ayassin           #+#    #+#              #
-#    Updated: 2022/06/19 16:19:11 by ayassin          ###   ########.fr        #
+#    Updated: 2022/06/20 11:36:01 by ayassin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,13 @@ NAME = philosophers
 
 HEADERS = philosophers.h
 
-SRC = philosophers.c
+SRC = philosophers.c philosophers_utils.c philo_life.c
 
 SUBDIRS = libft ft_printf
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -pthreads
+CFLAGS = -Wall -Werror -Wextra -pthread
 
 LINKS = -Llibft -lft -Lft_printf -lftprintf
 
