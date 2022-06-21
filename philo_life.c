@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 08:45:04 by ayassin           #+#    #+#             */
-/*   Updated: 2022/06/20 18:49:24 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/06/21 20:43:13 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,34 @@ int	calc_time(t_bag *my_bag)
 	return (0);
 }
 
+int	my_sleep(int time_to_waste)
+{
+	struct timeval	now;
+	struct timeval	start;
+
+	gettimeofday(&start, NULL);
+	gettimeofday(&now, NULL);
+	while (time_diff(&now, &start) * 1000< time_to_waste)
+	{
+		usleep(50);
+		gettimeofday(&now, NULL);
+	}
+	return (0);
+}
+
 void	loopy_philo(t_bag *my_bag)
 {
+	struct timeval	now;
+
 	while (my_bag->no_of_meals < my_bag->max_no_of_meals
 		|| my_bag->max_no_of_meals == -1)
 	{
 		calc_time(my_bag);
+		if (my_bag->time != -1)
+		{
+			gettimeofday(&now, NULL);
+			my_bag->death_clock = my_bag->time * 1000 + my_bag->time_to_die;
+		} //position is uncertian
 		pthread_mutex_lock(my_bag->common_lock);
 		// print_task(my_bag, "has taken a fork", GREEN);
 		// print_task(my_bag, "has taken a fork", GREEN);
@@ -36,9 +58,7 @@ void	loopy_philo(t_bag *my_bag)
 			break ;
 		}
 		pthread_mutex_unlock(my_bag->common_lock);
-		usleep(my_bag->time_to_eat);
-		my_bag->death_clock += my_bag->time_to_die; //position is uncertian
-		
+		my_sleep(my_bag->time_to_eat);
 		//--------------
 		calc_time(my_bag);
 		pthread_mutex_lock(my_bag->common_lock);
@@ -48,7 +68,7 @@ void	loopy_philo(t_bag *my_bag)
 			break ;
 		}
 		pthread_mutex_unlock(my_bag->common_lock);
-		usleep(my_bag->time_to_sleep);
+		my_sleep(my_bag->time_to_sleep);
 		//----------------
 		calc_time(my_bag);
 		pthread_mutex_lock(my_bag->common_lock);
@@ -65,12 +85,12 @@ void	loopy_philo(t_bag *my_bag)
 			pthread_mutex_unlock(my_bag->common_lock);
 			break ;
 		}
-		// if (my_bag->time_to_eat * (my_bag->type - 1) > my_bag->time)
-		// {
-		// 	//die
-		// }
-		//usleep(my_bag->time_to_die - my_bag->time_to_eat * (my_bag->type - 1) - my_bag->time);
-		break;
+		if (my_bag->time_to_eat * (my_bag->type - 1) > my_bag->time_to_sleep)
+			my_sleep(my_bag->time_to_eat * (my_bag->type - 1) - my_bag->time_to_sleep);
+		//else
+			// he is going to die
+		++(my_bag->no_of_meals);
+		// break;
 	}
 }
 

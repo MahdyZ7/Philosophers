@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:47:53 by ayassin           #+#    #+#             */
-/*   Updated: 2022/06/20 18:33:26 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/06/21 19:58:47 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ int	print_task(t_bag *bag, char *task, char *color)
 	//check if somone has died
 	if (*(bag->death) == 1)
 		return (1);
-	if (bag->time < -1)
+	if ((int) bag->time < -1)
 	{
 		*(bag->death) = 1;
-		printf("%s%d %d %s\n%s", BLACK, -bag->time, bag->id, "is dead", RESET_COLOR);
+		ft_printf("%s%d %d %s\n%s", BLACK, -bag->time, bag->id, "is dead", RESET_COLOR);
 		return (1);
 	}
 	ft_printf("%s%d %d %s\n%s", color, bag->time, bag->id, task, RESET_COLOR);

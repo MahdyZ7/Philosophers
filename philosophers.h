@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:40 by ayassin           #+#    #+#             */
-/*   Updated: 2022/06/20 11:24:03 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/06/21 20:12:36 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ typedef struct s_philos
 typedef struct s_bag
 {
 	int	id;
-	int	death_clock;
+	long	death_clock;
 	int	time_to_die;
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	max_no_of_meals;
 	int	no_of_meals;
 	int	type;
-	int	time;
+	long	time;
 	int	*death;
 	struct timeval	start;
 	struct timeval	end;
