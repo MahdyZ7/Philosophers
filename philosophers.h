@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:40 by ayassin           #+#    #+#             */
-/*   Updated: 2022/06/21 20:12:36 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/06/22 19:09:35 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,54 @@
 
 typedef struct s_philos
 {
-	int	population;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	no_of_meals;
+	int				population;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				no_of_meals;
 	pthread_mutex_t	lock;
+	pthread_mutex_t	*array_lock;
+
 }				t_philos;
 
 typedef struct s_bag
 {
-	int	id;
-	long	death_clock;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	max_no_of_meals;
-	int	no_of_meals;
-	int	type;
-	long	time;
-	int	*death;
+	int				id;
+	long			death_clock;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				max_no_of_meals;
+	int				no_of_meals;
+	int				type;
+	long			time;
+	int				*death;
 	struct timeval	start;
 	struct timeval	end;
 	pthread_mutex_t	*common_lock;
 }				t_bag;
 
+typedef struct s_bindle
+{
+	int				*forks_status;
+	char			*forks;
+	int				id;
+	long			countdown;
+	int				die_time;
+	int				eat_time;
+	int				sleep_time;
+	int				max_meals;
+	int				meals;
+	int				type;
+	long			time;
+	int				*death;
+	struct timeval	start;
+	pthread_mutex_t	*fork_lock1;
+	pthread_mutex_t	*fork_lock2;
+	pthread_mutex_t	*fork_state_lock1;
+	pthread_mutex_t	*fork_state_lock2;
+	pthread_mutex_t	*common_lock;
+}				t_bindle;
 int		time_diff(struct timeval *end, struct timeval *start);
 int		minitalk_atoi(char *str, int *valid_flag);
 int		print_task(t_bag *bag, char *task, char *color);

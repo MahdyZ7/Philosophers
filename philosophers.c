@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:43 by ayassin           #+#    #+#             */
-/*   Updated: 2022/06/21 19:44:38 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/06/22 19:11:19 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,59 @@ int	clean_exit(char *msg)
 	exit(-1);
 }
 
+int	creat_philos2(t_philos *ole)
+{
+	int				i;
+	pthread_t		*id;
+	t_bindle		*bindle;
+	struct timeval	false_start;
+	int				death;
+
+	i = 0;
+	death = 0;
+	pthread_mutex_init(&(ole->lock), NULL);
+	ole->array_lock = (pthread_mutex_t *) malloc(sizeof(pthread_mutex_t) * ole->population);
+	id = (pthread_t *)malloc(sizeof(*id) * ole->population);
+	bindle = (t_bindle *)malloc(sizeof(*bindle) * ole->population);
+	gettimeofday(&false_start, NULL);
+	while (i < ole->population)
+	{
+		bindle[i].id = i + 1;
+		bindle[i].max_meals = ole->no_of_meals;
+		bindle[i].meals = 0;
+		bindle[i].die_time = ole->time_to_die;
+		bindle[i].countdown = ole->time_to_die;
+		bindle[i].death = &death;
+		bindle[i].sleep_time = ole->time_to_sleep;
+		bindle[i].eat_time = ole->time_to_eat;
+		bindle[i].type = ole->population % 2 + 2;
+		bindle[i].common_lock = &(ole->lock);
+		bindle[i].start.tv_sec = false_start.tv_sec;
+		bindle[i].start.tv_usec = false_start.tv_usec;
+		if (i % 2 == 0)
+		{
+			bindle[i].fork_lock1 = &(ole->array_lock[i]);
+			bindle[i].fork_state_lock = malloc(sizeof(pthread_mutex_t) * 2);
+		}
+		else if (i == ole->population - 1)
+		{
+			bindle[i].fork_lock = malloc(sizeof(pthread_mutex_t));
+			bindle[i].fork_state_lock = malloc(sizeof(pthread_mutex_t));
+		}
+		pthread_mutex_init(bindle[i].fork_lock, NULL);
+		pthread_mutex_init(bindle[i].fork_state_lock, NULL);
+		//pthread_create(&(id[i]), NULL, life_cycle, &(my_bag[i]));
+		ft_printf("*");
+		++i;
+	}
+	i = 0;
+	while (i < ole->population)
+		pthread_join(id[i++], NULL);
+	free(bindle);
+	free(id);
+	return (0);
+}
+
 int	creat_philos(t_philos *ole)
 {
 	int				i;
@@ -68,7 +121,6 @@ int	creat_philos(t_philos *ole)
 	gettimeofday(&false_start, NULL);
 	while (i < ole->population)
 	{
-		//id[i] = i + 1;
 		my_bag[i].id = i + 1;
 		my_bag[i].max_no_of_meals = ole->no_of_meals;
 		my_bag[i].no_of_meals = 0;
@@ -118,7 +170,6 @@ int	main(int argv, char **argc)
 		ft_printf("A philosopher will definitly die\n");
 	else
 		ft_printf("All GOOD %d %d\n", philosophers.time_to_die / philosophers.time_to_eat, philosophers.time_to_die);
-	// mock_pilosophers(&philosophers);
 	creat_philos(&philosophers);
 	return (0);
 }
