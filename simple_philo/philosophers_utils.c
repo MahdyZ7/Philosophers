@@ -6,18 +6,18 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:47:53 by ayassin           #+#    #+#             */
-/*   Updated: 2022/06/23 19:41:48 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/06/23 14:50:39 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-long	time_diff(struct timeval *end, struct timeval *start)
+int	time_diff(struct timeval *end, struct timeval *start)
 {
-	long	time;
+	int	time;
 
-	time = (end->tv_sec - start->tv_sec) * 1000 * 1000;
-	time += (end->tv_usec - start->tv_usec);
+	time = (end->tv_sec - start->tv_sec) * 1000;
+	time += (end->tv_usec - start->tv_usec) / 1000;
 	return (time);
 }
 
@@ -42,23 +42,17 @@ int	minitalk_atoi(char *str, int *valid_flag)
 	return (num);
 }
 
-int	print_task2(t_bindle *bag, char *task, char *color)
+int	print_task(t_bag *bag, char *task, char *color)
 {
 	//check if somone has died
-	char	death;
-
-	death = 0;
-	pthread_mutex_lock(bag->common_lock);
 	if (*(bag->death) == 1)
-		death = 1;
-	else if ((int) bag->time < 0)
+		return (1);
+	if ((int) bag->time < -1)
 	{
 		*(bag->death) = 1;
-		ft_printf("%s%d %d %s\n%s", RED, -bag->time / 1000, bag->id, "is dead", RESET_COLOR);
-		death = 1;
+		ft_printf("%s%d %d %s\n%s", BLACK, -bag->time, bag->id, "is dead", RESET_COLOR);
+		return (1);
 	}
-	else
-		printf("%s%ld %d %s\n%s", color, bag->time / 1000, bag->id, task, RESET_COLOR);
-	pthread_mutex_unlock(bag->common_lock);
-	return (death);
+	ft_printf("%s%d %d %s\n%s", color, bag->time, bag->id, task, RESET_COLOR);
+	return (0);
 }

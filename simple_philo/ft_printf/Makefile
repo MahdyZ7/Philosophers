@@ -5,53 +5,48 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/05/22 13:02:34 by ayassin           #+#    #+#              #
-#    Updated: 2022/06/23 17:14:11 by ayassin          ###   ########.fr        #
+#    Created: 2021/12/13 09:20:21 by ayassin           #+#    #+#              #
+#    Updated: 2022/06/19 09:42:38 by ayassin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philosophers
+NAME = libftprintf.a
 
-HEADERS = philosophers.h
+SRC = ft_printfhelper.c ft_printf.c
 
-SRC = philosophers.c philosophers_utils.c philo_life2.c
+BNS_SRC = ft_printfhelper1_bonus.c ft_printfhelper2_bonus.c\
+		 ft_printfhelper3_bonus.c ft_printf_bonus.c
 
-SUBDIRS = libft ft_printf
+DIRS = ../libft
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -pthread
+CFLAGS = -Werror -Wall -Wextra
 
-LINKS = -Llibft -lft -Lft_printf -lftprintf
 
 OBJS = $(SRC:.c=.o)
 
-all : $(NAME)
+BNS_OBJS = $(BNS_SRC:.c=.o)
+
+
+all: $(NAME)
 
 .c.o:
-	for dir in $(SUBDIRS); do \
-        $(MAKE) all -C $$dir; \
-    done
-	$(CC) $(CFLAGS) -Ilibft -Ift_printf -c $^ -o $@
+	$(CC) $(CFLAGS) -I../libft -c $^ -o $@
 
-$(NAME) : $(OBJS)
-	for dir in $(SUBDIRS); do \
-        $(MAKE) all -C $$dir; \
-    done
-	$(CC) $(CFLAGS) $(LINKS) $(SRC) -o $(NAME)
+$(NAME): $(SUBDIRS) $(OBJS)
+	ar cr  $(NAME) $(OBJS)
+
+bonus: $(BNS_OBJS)
+	ar cr $(NAME) $(BNS_OBJS)
 
 clean:
-	rm -f $(OBJS)
-	for dir in $(SUBDIRS); do \
-        $(MAKE) clean -C $$dir; \
-    done
+	rm -f $(OBJS) $(BNS_OBJS)
 
 fclean: clean
 	rm -f $(NAME)
-	for dir in $(SUBDIRS); do \
-        $(MAKE) fclean -C $$dir; \
-    done
 
 re : fclean all
 
-.PHONY: clean fclean all re
+.PHONY: clean fclean libft
+

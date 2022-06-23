@@ -12,7 +12,6 @@ gcc -Werror -Wall -Wextra -c ft_isalnum.c -o ft_isalnum.o
 gcc -Werror -Wall -Wextra -c ft_isalpha.c -o ft_isalpha.o
 gcc -Werror -Wall -Wextra -c ft_isascii.c -o ft_isascii.o
 gcc -Werror -Wall -Wextra -c ft_isdigit.c -o ft_isdigit.o
- 
 gcc -Werror -Wall -Wextra -c ft_isprint.c -o ft_isprint.o
 gcc -Werror -Wall -Wextra -c ft_memchr.c -o ft_memchr.o
 gcc -Werror -Wall -Wextra -c ft_memcmp.c -o ft_memcmp.o
@@ -21,6 +20,7 @@ gcc -Werror -Wall -Wextra -c ft_memmove.c -o ft_memmove.o
 gcc -Werror -Wall -Wextra -c ft_memset.c -o ft_memset.o
 gcc -Werror -Wall -Wextra -c ft_strchr.c -o ft_strchr.o
 gcc -Werror -Wall -Wextra -c ft_strncmp.c -o ft_strncmp.o
+ 
 gcc -Werror -Wall -Wextra -c ft_strdup.c -o ft_strdup.o
 gcc -Werror -Wall -Wextra -c ft_strlcat.c -o ft_strlcat.o
 gcc -Werror -Wall -Wextra -c ft_strlcpy.c -o ft_strlcpy.o
@@ -48,7 +48,6 @@ gcc -Werror -Wall -Wextra -c ft_lstdelone.c -o ft_lstdelone.o
 gcc -Werror -Wall -Wextra -c ft_lstiter.c -o ft_lstiter.o
 gcc -Werror -Wall -Wextra -c ft_lstlast.c -o ft_lstlast.o
 gcc -Werror -Wall -Wextra -c ft_lstmap.c -o ft_lstmap.o
- 
 gcc -Werror -Wall -Wextra -c ft_lstnew.c -o ft_lstnew.o
 gcc -Werror -Wall -Wextra -c ft_lstsize.c -o ft_lstsize.o
 ar cr libft.a ft_lstadd_front.o ft_lstadd_back.o ft_lstclear.o ft_lstclear.o ft_lstdelone.o ft_lstiter.o ft_lstlast.o ft_lstmap.o ft_lstnew.o ft_lstsize.o ft_atoi.o ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o ft_isascii.o ft_isdigit.o ft_isprint.o ft_memchr.o ft_memcmp.o ft_memcpy.o ft_memmove.o ft_memset.o ft_strchr.o ft_strncmp.o ft_strdup.o ft_strlcat.o ft_strlcpy.o ft_strlen.o ft_strnstr.o ft_strrchr.o ft_tolower.o ft_toupper.o ft_itoa.o ft_putchar_fd.o ft_putendl_fd.o ft_putnbr_fd.o ft_putstr_fd.o ft_split.o ft_striteri.o ft_strjoin.o ft_strlen.o ft_strmapi.o ft_strtrim.o ft_substr.o
@@ -82,7 +81,6 @@ gcc -Werror -Wall -Wextra -c ft_strchr.c -o ft_strchr.o
 gcc -Werror -Wall -Wextra -c ft_strncmp.c -o ft_strncmp.o
 gcc -Werror -Wall -Wextra -c ft_strdup.c -o ft_strdup.o
 gcc -Werror -Wall -Wextra -c ft_strlcat.c -o ft_strlcat.o
- 
 gcc -Werror -Wall -Wextra -c ft_strlcpy.c -o ft_strlcpy.o
 gcc -Werror -Wall -Wextra -c ft_strlen.c -o ft_strlen.o
 gcc -Werror -Wall -Wextra -c ft_strnstr.c -o ft_strnstr.o
@@ -118,10 +116,13 @@ gcc -Werror -Wall -Wextra -I../libft -c ft_printfhelper.c -o ft_printfhelper.o
 gcc -Werror -Wall -Wextra -I../libft -c ft_printf.c -o ft_printf.o
 ar cr  libftprintf.a ft_printfhelper.o ft_printf.o
 make[1]: Leaving directory `/Users/ayassin/Documents/git files/Philosophers/ft_printf'
+ 
 gcc -Wall -Werror -Wextra -pthread -Ilibft -Ift_printf -c philosophers_utils.c -o philosophers_utils.o
+ 
 for dir in libft ft_printf; do \
         /Library/Developer/CommandLineTools/usr/bin/make all -C $dir; \
     done
+ 
 make[1]: Entering directory `/Users/ayassin/Documents/git files/Philosophers/libft'
 gcc -Werror -Wall -Wextra -c ft_atoi.c -o ft_atoi.o
 gcc -Werror -Wall -Wextra -c ft_bzero.c -o ft_bzero.o
@@ -131,6 +132,7 @@ gcc -Werror -Wall -Wextra -c ft_isalpha.c -o ft_isalpha.o
 gcc -Werror -Wall -Wextra -c ft_isascii.c -o ft_isascii.o
 gcc -Werror -Wall -Wextra -c ft_isdigit.c -o ft_isdigit.o
 gcc -Werror -Wall -Wextra -c ft_isprint.c -o ft_isprint.o
+ 
 gcc -Werror -Wall -Wextra -c ft_memchr.c -o ft_memchr.o
 gcc -Werror -Wall -Wextra -c ft_memcmp.c -o ft_memcmp.o
 gcc -Werror -Wall -Wextra -c ft_memcpy.c -o ft_memcpy.o
@@ -146,6 +148,7 @@ gcc -Werror -Wall -Wextra -c ft_strnstr.c -o ft_strnstr.o
 gcc -Werror -Wall -Wextra -c ft_strrchr.c -o ft_strrchr.o
 gcc -Werror -Wall -Wextra -c ft_tolower.c -o ft_tolower.o
 gcc -Werror -Wall -Wextra -c ft_toupper.c -o ft_toupper.o
+ 
 gcc -Werror -Wall -Wextra -c ft_itoa.c -o ft_itoa.o
 gcc -Werror -Wall -Wextra -c ft_putchar_fd.c -o ft_putchar_fd.o
 gcc -Werror -Wall -Wextra -c ft_putendl_fd.c -o ft_putendl_fd.o
@@ -174,8 +177,70 @@ make[1]: Entering directory `/Users/ayassin/Documents/git files/Philosophers/ft_
 gcc -Werror -Wall -Wextra -I../libft -c ft_printfhelper.c -o ft_printfhelper.o
 gcc -Werror -Wall -Wextra -I../libft -c ft_printf.c -o ft_printf.o
 ar cr  libftprintf.a ft_printfhelper.o ft_printf.o
+ 
 make[1]: Leaving directory `/Users/ayassin/Documents/git files/Philosophers/ft_printf'
 gcc -Wall -Werror -Wextra -pthread -Ilibft -Ift_printf -c philo_life.c -o philo_life.o
+ 
+for dir in libft ft_printf; do \
+        /Library/Developer/CommandLineTools/usr/bin/make all -C $dir; \
+    done
+ 
+make[1]: Entering directory `/Users/ayassin/Documents/git files/Philosophers/libft'
+gcc -Werror -Wall -Wextra -c ft_atoi.c -o ft_atoi.o
+gcc -Werror -Wall -Wextra -c ft_bzero.c -o ft_bzero.o
+gcc -Werror -Wall -Wextra -c ft_calloc.c -o ft_calloc.o
+gcc -Werror -Wall -Wextra -c ft_isalnum.c -o ft_isalnum.o
+ 
+gcc -Werror -Wall -Wextra -c ft_isalpha.c -o ft_isalpha.o
+gcc -Werror -Wall -Wextra -c ft_isascii.c -o ft_isascii.o
+gcc -Werror -Wall -Wextra -c ft_isdigit.c -o ft_isdigit.o
+gcc -Werror -Wall -Wextra -c ft_isprint.c -o ft_isprint.o
+gcc -Werror -Wall -Wextra -c ft_memchr.c -o ft_memchr.o
+gcc -Werror -Wall -Wextra -c ft_memcmp.c -o ft_memcmp.o
+gcc -Werror -Wall -Wextra -c ft_memcpy.c -o ft_memcpy.o
+gcc -Werror -Wall -Wextra -c ft_memmove.c -o ft_memmove.o
+gcc -Werror -Wall -Wextra -c ft_memset.c -o ft_memset.o
+gcc -Werror -Wall -Wextra -c ft_strchr.c -o ft_strchr.o
+gcc -Werror -Wall -Wextra -c ft_strncmp.c -o ft_strncmp.o
+gcc -Werror -Wall -Wextra -c ft_strdup.c -o ft_strdup.o
+gcc -Werror -Wall -Wextra -c ft_strlcat.c -o ft_strlcat.o
+gcc -Werror -Wall -Wextra -c ft_strlcpy.c -o ft_strlcpy.o
+gcc -Werror -Wall -Wextra -c ft_strlen.c -o ft_strlen.o
+gcc -Werror -Wall -Wextra -c ft_strnstr.c -o ft_strnstr.o
+gcc -Werror -Wall -Wextra -c ft_strrchr.c -o ft_strrchr.o
+gcc -Werror -Wall -Wextra -c ft_tolower.c -o ft_tolower.o
+ 
+gcc -Werror -Wall -Wextra -c ft_toupper.c -o ft_toupper.o
+gcc -Werror -Wall -Wextra -c ft_itoa.c -o ft_itoa.o
+gcc -Werror -Wall -Wextra -c ft_putchar_fd.c -o ft_putchar_fd.o
+gcc -Werror -Wall -Wextra -c ft_putendl_fd.c -o ft_putendl_fd.o
+gcc -Werror -Wall -Wextra -c ft_putnbr_fd.c -o ft_putnbr_fd.o
+gcc -Werror -Wall -Wextra -c ft_putstr_fd.c -o ft_putstr_fd.o
+gcc -Werror -Wall -Wextra -c ft_split.c -o ft_split.o
+gcc -Werror -Wall -Wextra -c ft_striteri.c -o ft_striteri.o
+gcc -Werror -Wall -Wextra -c ft_strjoin.c -o ft_strjoin.o
+gcc -Werror -Wall -Wextra -c ft_strmapi.c -o ft_strmapi.o
+gcc -Werror -Wall -Wextra -c ft_strtrim.c -o ft_strtrim.o
+gcc -Werror -Wall -Wextra -c ft_substr.c -o ft_substr.o
+ar cr libft.a ft_atoi.o ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o ft_isascii.o ft_isdigit.o ft_isprint.o ft_memchr.o ft_memcmp.o ft_memcpy.o ft_memmove.o ft_memset.o ft_strchr.o ft_strncmp.o ft_strdup.o ft_strlcat.o ft_strlcpy.o ft_strlen.o ft_strnstr.o ft_strrchr.o ft_tolower.o ft_toupper.o ft_itoa.o ft_putchar_fd.o ft_putendl_fd.o ft_putnbr_fd.o ft_putstr_fd.o ft_split.o ft_striteri.o ft_strjoin.o ft_strlen.o ft_strmapi.o ft_strtrim.o ft_substr.o
+gcc -Werror -Wall -Wextra -c ft_lstadd_front.c -o ft_lstadd_front.o
+gcc -Werror -Wall -Wextra -c ft_lstadd_back.c -o ft_lstadd_back.o
+gcc -Werror -Wall -Wextra -c ft_lstclear.c -o ft_lstclear.o
+gcc -Werror -Wall -Wextra -c ft_lstdelone.c -o ft_lstdelone.o
+gcc -Werror -Wall -Wextra -c ft_lstiter.c -o ft_lstiter.o
+gcc -Werror -Wall -Wextra -c ft_lstlast.c -o ft_lstlast.o
+gcc -Werror -Wall -Wextra -c ft_lstmap.c -o ft_lstmap.o
+gcc -Werror -Wall -Wextra -c ft_lstnew.c -o ft_lstnew.o
+gcc -Werror -Wall -Wextra -c ft_lstsize.c -o ft_lstsize.o
+ar cr libft.a ft_lstadd_front.o ft_lstadd_back.o ft_lstclear.o ft_lstclear.o ft_lstdelone.o ft_lstiter.o ft_lstlast.o ft_lstmap.o ft_lstnew.o ft_lstsize.o ft_atoi.o ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o ft_isascii.o ft_isdigit.o ft_isprint.o ft_memchr.o ft_memcmp.o ft_memcpy.o ft_memmove.o ft_memset.o ft_strchr.o ft_strncmp.o ft_strdup.o ft_strlcat.o ft_strlcpy.o ft_strlen.o ft_strnstr.o ft_strrchr.o ft_tolower.o ft_toupper.o ft_itoa.o ft_putchar_fd.o ft_putendl_fd.o ft_putnbr_fd.o ft_putstr_fd.o ft_split.o ft_striteri.o ft_strjoin.o ft_strlen.o ft_strmapi.o ft_strtrim.o ft_substr.o
+make[1]: Leaving directory `/Users/ayassin/Documents/git files/Philosophers/libft'
+ 
+make[1]: Entering directory `/Users/ayassin/Documents/git files/Philosophers/ft_printf'
+gcc -Werror -Wall -Wextra -I../libft -c ft_printfhelper.c -o ft_printfhelper.o
+gcc -Werror -Wall -Wextra -I../libft -c ft_printf.c -o ft_printf.o
+ar cr  libftprintf.a ft_printfhelper.o ft_printf.o
+make[1]: Leaving directory `/Users/ayassin/Documents/git files/Philosophers/ft_printf'
+gcc -Wall -Werror -Wextra -pthread -Ilibft -Ift_printf -c philo_life2.c -o philo_life2.o
 for dir in libft ft_printf; do \
         /Library/Developer/CommandLineTools/usr/bin/make all -C $dir; \
     done
@@ -193,6 +258,7 @@ gcc -Werror -Wall -Wextra -c ft_memcmp.c -o ft_memcmp.o
 gcc -Werror -Wall -Wextra -c ft_memcpy.c -o ft_memcpy.o
 gcc -Werror -Wall -Wextra -c ft_memmove.c -o ft_memmove.o
 gcc -Werror -Wall -Wextra -c ft_memset.c -o ft_memset.o
+ 
 gcc -Werror -Wall -Wextra -c ft_strchr.c -o ft_strchr.o
 gcc -Werror -Wall -Wextra -c ft_strncmp.c -o ft_strncmp.o
 gcc -Werror -Wall -Wextra -c ft_strdup.c -o ft_strdup.o
@@ -226,11 +292,12 @@ gcc -Werror -Wall -Wextra -c ft_lstnew.c -o ft_lstnew.o
 gcc -Werror -Wall -Wextra -c ft_lstsize.c -o ft_lstsize.o
 ar cr libft.a ft_lstadd_front.o ft_lstadd_back.o ft_lstclear.o ft_lstclear.o ft_lstdelone.o ft_lstiter.o ft_lstlast.o ft_lstmap.o ft_lstnew.o ft_lstsize.o ft_atoi.o ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o ft_isascii.o ft_isdigit.o ft_isprint.o ft_memchr.o ft_memcmp.o ft_memcpy.o ft_memmove.o ft_memset.o ft_strchr.o ft_strncmp.o ft_strdup.o ft_strlcat.o ft_strlcpy.o ft_strlen.o ft_strnstr.o ft_strrchr.o ft_tolower.o ft_toupper.o ft_itoa.o ft_putchar_fd.o ft_putendl_fd.o ft_putnbr_fd.o ft_putstr_fd.o ft_split.o ft_striteri.o ft_strjoin.o ft_strlen.o ft_strmapi.o ft_strtrim.o ft_substr.o
 make[1]: Leaving directory `/Users/ayassin/Documents/git files/Philosophers/libft'
+ 
 make[1]: Entering directory `/Users/ayassin/Documents/git files/Philosophers/ft_printf'
 gcc -Werror -Wall -Wextra -I../libft -c ft_printfhelper.c -o ft_printfhelper.o
 gcc -Werror -Wall -Wextra -I../libft -c ft_printf.c -o ft_printf.o
 ar cr  libftprintf.a ft_printfhelper.o ft_printf.o
 make[1]: Leaving directory `/Users/ayassin/Documents/git files/Philosophers/ft_printf'
-gcc -Wall -Werror -Wextra -pthread -Llibft -lft -Lft_printf -lftprintf philosophers.c philosophers_utils.c philo_life.c -o philosophers
+gcc -Wall -Werror -Wextra -pthread -Llibft -lft -Lft_printf -lftprintf philosophers.c philosophers_utils.c philo_life.c philo_life2.c -o philosophers
 make: Leaving directory `/Users/ayassin/Documents/git files/Philosophers'
  

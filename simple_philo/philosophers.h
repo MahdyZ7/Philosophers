@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:40 by ayassin           #+#    #+#             */
-/*   Updated: 2022/06/23 18:22:26 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/06/23 14:54:27 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,47 +31,40 @@
 #  define RESET_COLOR "\033[0m"
 # endif
 
-typedef struct timeval	t_timeval;
 typedef struct s_philos
 {
-	int				pop;
+	int				population;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				no_of_meals;
-	int				death;
 	int				*fork_state;
 	pthread_mutex_t	lock;
-	pthread_mutex_t	*arrlock;
+	pthread_mutex_t	*array_lock;
 
 }				t_philos;
-typedef struct s_bindle
+
+typedef struct s_bag
 {
-	int				*fork_state1;
-	int				*fork_state2;
-	//char			*forks;
 	int				id;
-	long			countdown;
-	int				die_time;
-	int				eat_time;
-	int				sleep_time;
-	int				max_meals;
-	int				meals;
+	long			death_clock;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				max_no_of_meals;
+	int				no_of_meals;
 	int				type;
 	long			time;
 	int				*death;
 	struct timeval	start;
 	struct timeval	end;
-	// pthread_mutex_t	*fork_lock1;
-	// pthread_mutex_t	*fork_lock2;
-	pthread_mutex_t	*fork_state_lock1;
-	pthread_mutex_t	*fork_state_lock2;
 	pthread_mutex_t	*common_lock;
-}				t_bindle;
-long	time_diff(struct timeval *end, struct timeval *start);
-int		minitalk_atoi(char *str, int *valid_flag);
-int		print_task2(t_bindle *bag, char *task, char *color);
+}				t_bag;
 
-void	*life_cycle2(void *bindle);
+int		time_diff(struct timeval *end, struct timeval *start);
+int		minitalk_atoi(char *str, int *valid_flag);
+int		print_task(t_bag *bag, char *task, char *color);
+
+void	*life_cycle(void *bag);
 
 #endif

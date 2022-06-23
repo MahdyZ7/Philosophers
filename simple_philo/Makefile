@@ -6,7 +6,7 @@
 #    By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/22 13:02:34 by ayassin           #+#    #+#              #
-#    Updated: 2022/06/23 17:14:11 by ayassin          ###   ########.fr        #
+#    Updated: 2022/06/23 14:50:26 by ayassin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philosophers
 
 HEADERS = philosophers.h
 
-SRC = philosophers.c philosophers_utils.c philo_life2.c
+SRC = philosophers.c philosophers_utils.c philo_life.c
 
 SUBDIRS = libft ft_printf
 

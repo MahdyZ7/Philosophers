@@ -6,13 +6,13 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 08:45:04 by ayassin           #+#    #+#             */
-/*   Updated: 2022/06/22 09:25:06 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/06/23 09:36:15 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	calc_time(t_bag *bag)
+static int	calc_time(t_bag *bag)
 {
 	gettimeofday(&(bag->end), NULL);
 	bag->time = time_diff(&(bag->end), &(bag->start));
@@ -21,7 +21,7 @@ int	calc_time(t_bag *bag)
 	return (0);
 }
 
-int	my_sleep(int time_to_waste, t_bag *bag)
+static int	my_sleep(int time_to_waste, t_bag *bag)
 {
 	struct timeval	now;
 	struct timeval	start;
@@ -43,7 +43,7 @@ int	my_sleep(int time_to_waste, t_bag *bag)
 	return (0);
 }
 
-void	loopy_philo(t_bag *my_bag)
+static void	loopy_philo(t_bag *my_bag)
 {
 	struct timeval	now;
 
