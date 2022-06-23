@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 08:45:04 by ayassin           #+#    #+#             */
-/*   Updated: 2022/06/23 19:40:05 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/06/23 20:08:23 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ static int	calc_time(t_bindle *bindle)
 	gettimeofday(&(bindle->end), NULL);
 	bindle->time = time_diff(&(bindle->end), &(bindle->start));
 	if (bindle->time > bindle->countdown)
+	{
+		print_task2(bindle, NULL, NULL);
 		bindle->time *= -1;
+	}
 	return (0);
 }
 
@@ -32,10 +35,10 @@ static int	my_sleep(int time_to_waste, t_bindle *bindle)
 	gettimeofday(&now, NULL);
 	while (time_diff(&now, &start) < time_to_waste)
 	{
-		usleep(500);
+		usleep(50);
 		calc_time(bindle);
-		if (bindle->time < 0)
-			print_task2(bindle, NULL, NULL);
+		// if (bindle->time < 0)
+			// print_task2(bindle, NULL, NULL);
 		gettimeofday(&now, NULL);
 	}
 	return (0);
@@ -64,7 +67,7 @@ void	loopy_philo(t_bindle *bindle)
 		if (green_pass)
 		{
 			if (bindle->time != -1)
-				bindle->countdown = bindle->time * 1000 + bindle->die_time;
+				bindle->countdown = bindle->time + bindle->die_time;
 			if (print_task2(bindle, "has taken a fork", GREEN)
 				|| print_task2(bindle, "has taken a fork", GREEN)
 				|| print_task2(bindle, "is_eating", GREEN))
