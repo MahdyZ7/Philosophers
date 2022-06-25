@@ -1,9 +1,9 @@
 make --dry-run --always-make --keep-going --print-directory
-make: Entering directory `/Users/ayassin/Documents/git files/Philosophers'
+make: Entering directory '/home/ayassin/ahmed_projects/Philosophers'
 for dir in libft ft_printf; do \
-        /Library/Developer/CommandLineTools/usr/bin/make all -C $dir; \
+        make all -C $dir; \
     done
-make[1]: Entering directory `/Users/ayassin/Documents/git files/Philosophers/libft'
+make[1]: Entering directory '/home/ayassin/ahmed_projects/Philosophers/libft'
 gcc -Werror -Wall -Wextra -c ft_atoi.c -o ft_atoi.o
 gcc -Werror -Wall -Wextra -c ft_bzero.c -o ft_bzero.o
 gcc -Werror -Wall -Wextra -c ft_calloc.c -o ft_calloc.o
@@ -49,17 +49,17 @@ gcc -Werror -Wall -Wextra -c ft_lstmap.c -o ft_lstmap.o
 gcc -Werror -Wall -Wextra -c ft_lstnew.c -o ft_lstnew.o
 gcc -Werror -Wall -Wextra -c ft_lstsize.c -o ft_lstsize.o
 ar cr libft.a ft_lstadd_front.o ft_lstadd_back.o ft_lstclear.o ft_lstclear.o ft_lstdelone.o ft_lstiter.o ft_lstlast.o ft_lstmap.o ft_lstnew.o ft_lstsize.o ft_atoi.o ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o ft_isascii.o ft_isdigit.o ft_isprint.o ft_memchr.o ft_memcmp.o ft_memcpy.o ft_memmove.o ft_memset.o ft_strchr.o ft_strncmp.o ft_strdup.o ft_strlcat.o ft_strlcpy.o ft_strlen.o ft_strnstr.o ft_strrchr.o ft_tolower.o ft_toupper.o ft_itoa.o ft_putchar_fd.o ft_putendl_fd.o ft_putnbr_fd.o ft_putstr_fd.o ft_split.o ft_striteri.o ft_strjoin.o ft_strlen.o ft_strmapi.o ft_strtrim.o ft_substr.o
-make[1]: Leaving directory `/Users/ayassin/Documents/git files/Philosophers/libft'
-make[1]: Entering directory `/Users/ayassin/Documents/git files/Philosophers/ft_printf'
+make[1]: Leaving directory '/home/ayassin/ahmed_projects/Philosophers/libft'
+make[1]: Entering directory '/home/ayassin/ahmed_projects/Philosophers/ft_printf'
 gcc -Werror -Wall -Wextra -I../libft -c ft_printfhelper.c -o ft_printfhelper.o
 gcc -Werror -Wall -Wextra -I../libft -c ft_printf.c -o ft_printf.o
 ar cr  libftprintf.a ft_printfhelper.o ft_printf.o
-make[1]: Leaving directory `/Users/ayassin/Documents/git files/Philosophers/ft_printf'
+make[1]: Leaving directory '/home/ayassin/ahmed_projects/Philosophers/ft_printf'
 gcc -Wall -Werror -Wextra -pthread -Ilibft -Ift_printf -c philosophers.c -o philosophers.o
 for dir in libft ft_printf; do \
-        /Library/Developer/CommandLineTools/usr/bin/make all -C $dir; \
+        make all -C $dir; \
     done
-make[1]: Entering directory `/Users/ayassin/Documents/git files/Philosophers/libft'
+make[1]: Entering directory '/home/ayassin/ahmed_projects/Philosophers/libft'
 gcc -Werror -Wall -Wextra -c ft_atoi.c -o ft_atoi.o
 gcc -Werror -Wall -Wextra -c ft_bzero.c -o ft_bzero.o
 gcc -Werror -Wall -Wextra -c ft_calloc.c -o ft_calloc.o
@@ -105,18 +105,17 @@ gcc -Werror -Wall -Wextra -c ft_lstmap.c -o ft_lstmap.o
 gcc -Werror -Wall -Wextra -c ft_lstnew.c -o ft_lstnew.o
 gcc -Werror -Wall -Wextra -c ft_lstsize.c -o ft_lstsize.o
 ar cr libft.a ft_lstadd_front.o ft_lstadd_back.o ft_lstclear.o ft_lstclear.o ft_lstdelone.o ft_lstiter.o ft_lstlast.o ft_lstmap.o ft_lstnew.o ft_lstsize.o ft_atoi.o ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o ft_isascii.o ft_isdigit.o ft_isprint.o ft_memchr.o ft_memcmp.o ft_memcpy.o ft_memmove.o ft_memset.o ft_strchr.o ft_strncmp.o ft_strdup.o ft_strlcat.o ft_strlcpy.o ft_strlen.o ft_strnstr.o ft_strrchr.o ft_tolower.o ft_toupper.o ft_itoa.o ft_putchar_fd.o ft_putendl_fd.o ft_putnbr_fd.o ft_putstr_fd.o ft_split.o ft_striteri.o ft_strjoin.o ft_strlen.o ft_strmapi.o ft_strtrim.o ft_substr.o
- 
-make[1]: Leaving directory `/Users/ayassin/Documents/git files/Philosophers/libft'
-make[1]: Entering directory `/Users/ayassin/Documents/git files/Philosophers/ft_printf'
+make[1]: Leaving directory '/home/ayassin/ahmed_projects/Philosophers/libft'
+make[1]: Entering directory '/home/ayassin/ahmed_projects/Philosophers/ft_printf'
 gcc -Werror -Wall -Wextra -I../libft -c ft_printfhelper.c -o ft_printfhelper.o
 gcc -Werror -Wall -Wextra -I../libft -c ft_printf.c -o ft_printf.o
 ar cr  libftprintf.a ft_printfhelper.o ft_printf.o
-make[1]: Leaving directory `/Users/ayassin/Documents/git files/Philosophers/ft_printf'
+make[1]: Leaving directory '/home/ayassin/ahmed_projects/Philosophers/ft_printf'
 gcc -Wall -Werror -Wextra -pthread -Ilibft -Ift_printf -c philosophers_utils.c -o philosophers_utils.o
 for dir in libft ft_printf; do \
-        /Library/Developer/CommandLineTools/usr/bin/make all -C $dir; \
+        make all -C $dir; \
     done
-make[1]: Entering directory `/Users/ayassin/Documents/git files/Philosophers/libft'
+make[1]: Entering directory '/home/ayassin/ahmed_projects/Philosophers/libft'
 gcc -Werror -Wall -Wextra -c ft_atoi.c -o ft_atoi.o
 gcc -Werror -Wall -Wextra -c ft_bzero.c -o ft_bzero.o
 gcc -Werror -Wall -Wextra -c ft_calloc.c -o ft_calloc.o
@@ -162,17 +161,17 @@ gcc -Werror -Wall -Wextra -c ft_lstmap.c -o ft_lstmap.o
 gcc -Werror -Wall -Wextra -c ft_lstnew.c -o ft_lstnew.o
 gcc -Werror -Wall -Wextra -c ft_lstsize.c -o ft_lstsize.o
 ar cr libft.a ft_lstadd_front.o ft_lstadd_back.o ft_lstclear.o ft_lstclear.o ft_lstdelone.o ft_lstiter.o ft_lstlast.o ft_lstmap.o ft_lstnew.o ft_lstsize.o ft_atoi.o ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o ft_isascii.o ft_isdigit.o ft_isprint.o ft_memchr.o ft_memcmp.o ft_memcpy.o ft_memmove.o ft_memset.o ft_strchr.o ft_strncmp.o ft_strdup.o ft_strlcat.o ft_strlcpy.o ft_strlen.o ft_strnstr.o ft_strrchr.o ft_tolower.o ft_toupper.o ft_itoa.o ft_putchar_fd.o ft_putendl_fd.o ft_putnbr_fd.o ft_putstr_fd.o ft_split.o ft_striteri.o ft_strjoin.o ft_strlen.o ft_strmapi.o ft_strtrim.o ft_substr.o
-make[1]: Leaving directory `/Users/ayassin/Documents/git files/Philosophers/libft'
-make[1]: Entering directory `/Users/ayassin/Documents/git files/Philosophers/ft_printf'
+make[1]: Leaving directory '/home/ayassin/ahmed_projects/Philosophers/libft'
+make[1]: Entering directory '/home/ayassin/ahmed_projects/Philosophers/ft_printf'
 gcc -Werror -Wall -Wextra -I../libft -c ft_printfhelper.c -o ft_printfhelper.o
 gcc -Werror -Wall -Wextra -I../libft -c ft_printf.c -o ft_printf.o
 ar cr  libftprintf.a ft_printfhelper.o ft_printf.o
-make[1]: Leaving directory `/Users/ayassin/Documents/git files/Philosophers/ft_printf'
+make[1]: Leaving directory '/home/ayassin/ahmed_projects/Philosophers/ft_printf'
 gcc -Wall -Werror -Wextra -pthread -Ilibft -Ift_printf -c philo_life2.c -o philo_life2.o
 for dir in libft ft_printf; do \
-        /Library/Developer/CommandLineTools/usr/bin/make all -C $dir; \
+        make all -C $dir; \
     done
-make[1]: Entering directory `/Users/ayassin/Documents/git files/Philosophers/libft'
+make[1]: Entering directory '/home/ayassin/ahmed_projects/Philosophers/libft'
 gcc -Werror -Wall -Wextra -c ft_atoi.c -o ft_atoi.o
 gcc -Werror -Wall -Wextra -c ft_bzero.c -o ft_bzero.o
 gcc -Werror -Wall -Wextra -c ft_calloc.c -o ft_calloc.o
@@ -217,15 +216,13 @@ gcc -Werror -Wall -Wextra -c ft_lstlast.c -o ft_lstlast.o
 gcc -Werror -Wall -Wextra -c ft_lstmap.c -o ft_lstmap.o
 gcc -Werror -Wall -Wextra -c ft_lstnew.c -o ft_lstnew.o
 gcc -Werror -Wall -Wextra -c ft_lstsize.c -o ft_lstsize.o
- 
 ar cr libft.a ft_lstadd_front.o ft_lstadd_back.o ft_lstclear.o ft_lstclear.o ft_lstdelone.o ft_lstiter.o ft_lstlast.o ft_lstmap.o ft_lstnew.o ft_lstsize.o ft_atoi.o ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o ft_isascii.o ft_isdigit.o ft_isprint.o ft_memchr.o ft_memcmp.o ft_memcpy.o ft_memmove.o ft_memset.o ft_strchr.o ft_strncmp.o ft_strdup.o ft_strlcat.o ft_strlcpy.o ft_strlen.o ft_strnstr.o ft_strrchr.o ft_tolower.o ft_toupper.o ft_itoa.o ft_putchar_fd.o ft_putendl_fd.o ft_putnbr_fd.o ft_putstr_fd.o ft_split.o ft_striteri.o ft_strjoin.o ft_strlen.o ft_strmapi.o ft_strtrim.o ft_substr.o
-make[1]: Leaving directory `/Users/ayassin/Documents/git files/Philosophers/libft'
- 
-make[1]: Entering directory `/Users/ayassin/Documents/git files/Philosophers/ft_printf'
+make[1]: Leaving directory '/home/ayassin/ahmed_projects/Philosophers/libft'
+make[1]: Entering directory '/home/ayassin/ahmed_projects/Philosophers/ft_printf'
 gcc -Werror -Wall -Wextra -I../libft -c ft_printfhelper.c -o ft_printfhelper.o
 gcc -Werror -Wall -Wextra -I../libft -c ft_printf.c -o ft_printf.o
 ar cr  libftprintf.a ft_printfhelper.o ft_printf.o
-make[1]: Leaving directory `/Users/ayassin/Documents/git files/Philosophers/ft_printf'
-gcc -Wall -Werror -Wextra -pthread -Llibft -lft -Lft_printf -lftprintf philosophers.c philosophers_utils.c philo_life2.c -o philosophers
-make: Leaving directory `/Users/ayassin/Documents/git files/Philosophers'
+make[1]: Leaving directory '/home/ayassin/ahmed_projects/Philosophers/ft_printf'
+gcc -Wall -Werror -Wextra -pthread philosophers.c philosophers_utils.c philo_life2.c -Lft_printf -lftprintf -Llibft -lft -o philosophers
+make: Leaving directory '/home/ayassin/ahmed_projects/Philosophers'
  

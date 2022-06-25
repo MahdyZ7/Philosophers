@@ -1,21 +1,25 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-# GNU Make 3.81
-# Copyright (C) 2006  Free Software Foundation, Inc.
-# This is free software; see the source for copying conditions.
-# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
-# PARTICULAR PURPOSE.
+# GNU Make 4.2.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2016 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
 
-# This program built for i386-apple-darwin11.3.0
-
-# Make data base, printed on Thu Jun 23 19:47:00 2022
+# Make data base, printed on Sat Jun 25 11:06:48 2022
 
 # Variables
 
 # automatic
+ 
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
-# makefile (from `Makefile', line 17)
+# environment
+WSLENV = ELECTRON_RUN_AS_NODE/w:
+# default
+.SHELLFLAGS := -c
+# makefile (from 'Makefile', line 17)
 SRC = philosophers.c philosophers_utils.c philo_life2.c
 # environment
 VSCODE_LOG_NATIVE = false
@@ -26,116 +30,115 @@ VSCODE_LOG_NATIVE = false
 # automatic
 @F = $(notdir $@)
 # makefile
-CURDIR := /Users/ayassin/Documents/git files/Philosophers
+CURDIR := /home/ayassin/ahmed_projects/Philosophers
 # makefile
 SHELL = /bin/sh
 # environment
-VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
 # environment
-_ = /usr/bin/make
-# makefile (from `Makefile', line 23)
+_ = /mnt/c/Users/Administrator/AppData/Local/Programs/Microsoft VS Code/bin/code
+# makefile (from 'Makefile', line 23)
 CFLAGS = -Wall -Werror -Wextra -pthread
-# makefile (from `Makefile', line 1)
+# makefile (from 'Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+XDG_DATA_DIRS = /usr/local/share:/usr/share:/var/lib/snapd/desktop
 # environment
 VSCODE_VERBOSE_LOGGING = true
-# makefile (from `Makefile', line 27)
+# makefile (from 'Makefile', line 27)
 OBJS = $(SRC:.c=.o)
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cbym0032zn/T/vscode-ipc-fe50b7e4-0320-40fe-bda2-4d4d04e35896.sock
+LESSOPEN = | /usr/bin/lesspipe %s
 # environment
-VSCODE_CWD = /
+VSCODE_CWD = /mnt/c/Users/Administrator/AppData/Local/Programs/Microsoft VS Code
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Users/ayassin/Desktop/42-ValgrindContainer
+PATH = /home/ayassin/.vscode-server/bin/30d9c6cd9483b2cc586687151bcbcd635f373630/bin/remote-cli:/home/ayassin/.local/bin:./local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/windows/system32:/mnt/c/windows:/mnt/c/windows/System32/Wbem:/mnt/c/windows/System32/WindowsPowerShell/v1.0/:/mnt/c/windows/System32/OpenSSH/:/mnt/c/Program Files/Git/cmd:/mnt/c/Users/Administrator/AppData/Local/Programs/Python/Python310/Scripts/:/mnt/c/Users/Administrator/AppData/Local/Programs/Python/Python310/:/mnt/c/Users/Administrator/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/Administrator/AppData/Local/Programs/Microsoft VS Code/bin:/snap/bin
 # environment
-LaunchInstanceID = C7C627CA-5D2E-4FEA-B86A-0C35526AD0FB
+XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # environment
 VSCODE_LOG_STACK = false
 # environment
-ELECTRON_RUN_AS_NODE = 1
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-36470753-f7d7-4b6f-8e18-0d9875c27786.sock
 # default
-.FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.ct4kE9fKgv/Listeners
+LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
 # automatic
 %F = $(notdir $%)
 # environment
+DISPLAY = :0
+# environment
 VSCODE_PIPE_LOGGING = true
 # environment
-PWD = /Users/ayassin/Documents/git files/Philosophers
+PWD = /home/ayassin/ahmed_projects/Philosophers
+# default
+.LOADED := 
 # environment
-ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+WSL_INTEROP = /run/WSL/8_interop
+# environment
+PULSE_SERVER = /mnt/wslg/PulseServer
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-HOME = /Users/ayassin
-# default
-MAKEFILEPATH = $(shell /usr/bin/xcode-select -print-path 2>/dev/null || echo /Developer)/Makefiles
+HOME = /home/ayassin
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/ayassin/Library/Application Support/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
+LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
 LOGNAME = ayassin
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
-# makefile (from `Makefile', line 15)
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# makefile (from 'Makefile', line 15)
 HEADERS = philosophers.h
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
-XPC_FLAGS = 0x0
+MAKELEVEL := 0
 # default
 MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
 SHLVL = 1
-# makefile (from `Makefile', line 21)
+# makefile (from 'Makefile', line 21)
 CC = gcc
 # default
-MAKE_VERSION := 3.81
+MAKE_VERSION := 4.2.1
 # environment
 USER = ayassin
 # makefile
 .DEFAULT_GOAL := all
-# makefile (from `Makefile', line 13)
+# makefile (from 'Makefile', line 13)
 NAME = philosophers
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
-# makefile (from `Makefile', line 25)
-LINKS = -Llibft -lft -Lft_printf -lftprintf
+# makefile (from 'Makefile', line 25)
+LINKS = -Lft_printf -lftprintf -Llibft -lft
+# environment
+VSCODE_WSL_EXT_LOCATION = /mnt/c/Users/Administrator/.vscode/extensions/ms-vscode-remote.remote-wsl-0.66.3
 # default
-MAKE_COMMAND := /Library/Developer/CommandLineTools/usr/bin/make
+MAKE_COMMAND := make
 # default
 .VARIABLES := 
-# environment
-TMPDIR = /var/folders/zz/zyxvpxvq6csfxvn_n000cbym0032zn/T/
 # automatic
 *F = $(notdir $*)
-# environment
-VSCODE_IPC_HOOK = /Users/ayassin/Library/Application Support/Code/1.68.1-main.sock
 # makefile
- 
-make: *** No rule to make target `philosophers.o', needed by `philosophers'.  Stop.
-
-MAKEFLAGS = Rrqp
+MAKEFLAGS = pqrR
 # environment
-MFLAGS = -Rrqp
+MFLAGS = -pqrR
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
-# environment
-MAIL = ayassin@student.42abudhabi.ae
-# environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000018.Electron
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
 +F = $(notdir $+)
 # environment
-__CF_USER_TEXT_ENCODING = 0x18BF5:0x0:0x0
-# environment
-COMMAND_MODE = unix2003
+VSCODE_HANDLES_SIGPIPE = true
 # default
 MAKEFILES := 
 # automatic
@@ -143,23 +146,31 @@ MAKEFILES :=
 # environment
 LC_ALL = C
 # environment
-SECURITYSESSIONID = 18712
+HOSTTYPE = x86_64
 # automatic
 ^F = $(notdir $^)
 # default
 SUFFIXES := 
-# default
-.INCLUDE_DIRS = /usr/local/include
 # environment
-MAKELEVEL := 0
-# makefile (from `Makefile', line 19)
+WAYLAND_DISPLAY = wayland-0
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# default
+.RECIPEPREFIX := 
+# makefile (from 'Makefile', line 19)
 SUBDIRS = libft ft_printf
 # environment
 LANG = C
 # environment
-VSCODE_PID = 96142
+TERM = xterm-256color
+# environment
+VSCODE_EXTHOST_WILL_SEND_SOCKET = true
+# environment
+WSL_DISTRO_NAME = Ubuntu
+# environment
+MOTD_SHOWN = update-motd
 # variable set hash-table stats:
-# Load=72/1024=7%, Rehash=0, Collisions=3/100=3%
+# Load=79/1024=8%, Rehash=0, Collisions=6/109=6%
 
 # Pattern-specific Variable Values
 
@@ -167,9 +178,9 @@ VSCODE_PID = 96142
 
 # Directories
 
-# . (device 16777225, inode 1845247): 13 files, no impossibilities.
+# . (device 2080, inode 86920): 17 files, no impossibilities.
 
-# 13 files, no impossibilities in 1 directories.
+# 17 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -179,12 +190,11 @@ VSCODE_PID = 96142
 
 all: philosophers
 #  Phony target (prerequisite of .PHONY).
-#  Command-line target.
+#  Command line target.
 #  Implicit rule search has not been done.
 #  File does not exist.
-#  File has not been updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  File has been updated.
+#  Successfully updated.
 
 .PHONY: clean fclean all re
 #  Implicit rule search has not been done.
@@ -193,53 +203,45 @@ all: philosophers
 
 # Not a target:
 philo_life2.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+#  Last modified 2022-06-24 09:40:42.971837953
+#  File has been updated.
+#  Successfully updated.
 
 # Not a target:
 philosophers_utils.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-.SUFFIXES:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+#  Last modified 2022-06-24 09:22:18.98181912
+#  File has been updated.
+#  Successfully updated.
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-23 17:14:11
+#  Last modified 2022-06-24 09:22:16.601819079
 #  File has been updated.
 #  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 .c.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 32):
+#  recipe to execute (from 'Makefile', line 32):
 	for dir in $(SUBDIRS); do \
-	$(MAKE) all -C $$dir; \
-	done
+        $(MAKE) all -C $$dir; \
+    done
 	$(CC) $(CFLAGS) -Ilibft -Ift_printf -c $^ -o $@
-	
 
 fclean: clean
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 50):
+#  recipe to execute (from 'Makefile', line 50):
 	rm -f $(NAME)
 	for dir in $(SUBDIRS); do \
-	$(MAKE) fclean -C $$dir; \
-	done
-	
+        $(MAKE) fclean -C $$dir; \
+    done
 
 # Not a target:
 .DEFAULT:
@@ -250,23 +252,20 @@ fclean: clean
 # Not a target:
 philosophers.o:
 #  Implicit rule search has been done.
-#  File does not exist.
-#  File has not been updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  Last modified 2022-06-24 09:22:18.951819119
+#  File has been updated.
+#  Successfully updated.
 
 philosophers: philosophers.o philosophers_utils.o philo_life2.o
 #  Implicit rule search has not been done.
-#  File does not exist.
-#  File has not been updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 38):
+#  Last modified 2022-06-24 09:40:43.091837955
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 38):
 	for dir in $(SUBDIRS); do \
-	$(MAKE) all -C $$dir; \
-	done
-	$(CC) $(CFLAGS) $(LINKS) $(SRC) -o $(NAME)
-	
+        $(MAKE) all -C $$dir; \
+    done
+	$(CC) $(CFLAGS) $(SRC) $(LINKS) -o $(NAME)
 
 re: fclean all
 #  Phony target (prerequisite of .PHONY).
@@ -279,26 +278,27 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 44):
+#  recipe to execute (from 'Makefile', line 44):
 	rm -f $(OBJS)
 	for dir in $(SUBDIRS); do \
-	$(MAKE) clean -C $$dir; \
-	done
-	
+        $(MAKE) clean -C $$dir; \
+    done
 
 # files hash-table stats:
-# Load=13/1024=1%, Rehash=0, Collisions=0/37=0%
+# Load=13/1024=1%, Rehash=0, Collisions=0/36=0%
 # VPATH Search Paths
 
-# No `vpath' search paths.
+# No 'vpath' search paths.
 
-# No general (`VPATH' variable) search path.
+# No general ('VPATH' variable) search path.
 
-# # of strings in strcache: 1
-# # of strcache buffers: 1
-# strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
-# strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
+# strcache buffers: 1 (0) / strings = 27 / storage = 277 B / avg = 10 B
+# current buf: size = 8162 B / used = 277 B / count = 27 / avg = 10 B
+ 
 
-# Finished Make data base on Thu Jun 23 19:47:00 2022
+# strcache performance: lookups = 51 / hit rate = 47%
+# hash-table stats:
+# Load=27/8192=0%, Rehash=0, Collisions=1/51=2%
+# Finished Make data base on Sat Jun 25 11:06:48 2022
 
  

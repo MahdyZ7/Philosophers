@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+         #
+#    By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/22 13:02:34 by ayassin           #+#    #+#              #
-#    Updated: 2022/06/23 17:14:11 by ayassin          ###   ########.fr        #
+#    Updated: 2022/06/24 09:22:16 by ayassin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra -pthread
 
-LINKS = -Llibft -lft -Lft_printf -lftprintf
+LINKS =  -Lft_printf -lftprintf -Llibft -lft
 
 OBJS = $(SRC:.c=.o)
 
@@ -38,7 +38,7 @@ $(NAME) : $(OBJS)
 	for dir in $(SUBDIRS); do \
         $(MAKE) all -C $$dir; \
     done
-	$(CC) $(CFLAGS) $(LINKS) $(SRC) -o $(NAME)
+	$(CC) $(CFLAGS) $(SRC) $(LINKS) -o $(NAME)
 
 clean:
 	rm -f $(OBJS)
