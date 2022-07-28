@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:40 by ayassin           #+#    #+#             */
-/*   Updated: 2022/06/23 18:22:26 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/07/28 18:18:10 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILOSOPHERS_H
 # include <stdio.h>
 # include <unistd.h>
+# include <stdint.h>
 # include <sys/time.h>
 # include <pthread.h>
 # include "libft/libft.h"
@@ -35,9 +36,9 @@ typedef struct timeval	t_timeval;
 typedef struct s_philos
 {
 	int				pop;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
+	int_fast64_t	time_to_die;
+	int_fast64_t	time_to_eat;
+	int_fast64_t	time_to_sleep;
 	int				no_of_meals;
 	int				death;
 	int				*fork_state;
@@ -51,10 +52,10 @@ typedef struct s_bindle
 	int				*fork_state2;
 	//char			*forks;
 	int				id;
-	long			countdown;
-	int				die_time;
-	int				eat_time;
-	int				sleep_time;
+	int_fast64_t	countdown;
+	int_fast64_t	die_time;
+	int_fast64_t	eat_time;
+	long			sleep_time;
 	int				max_meals;
 	int				meals;
 	int				type;
@@ -68,9 +69,13 @@ typedef struct s_bindle
 	pthread_mutex_t	*fork_state_lock2;
 	pthread_mutex_t	*common_lock;
 }				t_bindle;
+
 long	time_diff(struct timeval *end, struct timeval *start);
 int		minitalk_atoi(char *str, int *valid_flag);
 int		print_task2(t_bindle *bag, char *task, char *color);
+int		calc_time(t_bindle *bindle);
+int		my_sleep(int time_to_waste, t_bindle *bindle);
+
 
 void	*life_cycle2(void *bindle);
 

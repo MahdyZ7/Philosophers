@@ -3,44 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   philo_life2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 08:45:04 by ayassin           #+#    #+#             */
-/*   Updated: 2022/06/25 20:19:55 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/07/28 18:28:45 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static int	calc_time(t_bindle *bindle)
+/* Assumptions
+1)	philo has to finish eating to extend his life span by
+time_to_die
+
+2) microseconds are not a rounding error, they are tracked
+even if they are not printed
+*/
+
+int	get_fork(t_bindle *bindle)
 {
-	gettimeofday(&(bindle->end), NULL);
-	bindle->time = time_diff(&(bindle->end), &(bindle->start));
-	if (bindle->time > bindle->countdown)
+	int	green_pass;
+
+	green_pass = 0;
+	pthread_mutex_lock(bindle->fork_state_lock1);
+	pthread_mutex_lock(bindle->fork_state_lock2);
+	if (*(bindle->fork_state1) >= 0 && *(bindle->fork_state2) >= 0
+		&& *(bindle->fork_state1) != bindle->id
+		&& *(bindle->fork_state2) != bindle->id)
 	{
-		bindle->time *= -1;
-		return (print_task2(bindle, NULL, NULL));
+		*(bindle->fork_state1) = -bindle->id;
+		*(bindle->fork_state2) = -bindle->id;
+		green_pass = 1;
 	}
-	return (0);
+	pthread_mutex_unlock(bindle->fork_state_lock2);
+	pthread_mutex_unlock(bindle->fork_state_lock1);
+	return (green_pass);
 }
 
-static int	my_sleep(int time_to_waste, t_bindle *bindle)
+int	leave_fork(t_bindle *bindle, int fork_state)
 {
-	struct timeval	now;
-	struct timeval	start;
+	pthread_mutex_lock(bindle->fork_state_lock1);
+	pthread_mutex_lock(bindle->fork_state_lock2);
+	*(bindle->fork_state1) = fork_state;
+	*(bindle->fork_state2) = fork_state;
+	pthread_mutex_unlock(bindle->fork_state_lock2);
+	pthread_mutex_unlock(bindle->fork_state_lock1);
+	return (1);
+}
 
-	if (time_to_waste == 0)
-		return (0);
-	gettimeofday(&start, NULL);
-	gettimeofday(&now, NULL);
-	while (time_diff(&now, &start) < time_to_waste)
-	{
-		usleep(50);
-		(void) bindle;
-		if (calc_time(bindle))
-			return (1);
-		gettimeofday(&now, NULL);
-	}
+int	eat(t_bindle *bindle)
+{
+	if (print_task2(bindle, "has taken a fork", GREEN)
+		|| print_task2(bindle, "has taken a fork", GREEN)
+		|| print_task2(bindle, "is_eating", GREEN))
+		return (leave_fork(bindle, 0));
+	my_sleep(bindle->eat_time, bindle);
+	calc_time(bindle);
+	bindle->countdown = bindle->time + bindle->die_time;
 	return (0);
 }
 
@@ -48,62 +67,23 @@ void	loopy_philo(t_bindle *bindle)
 {
 	char	green_pass;
 
-	green_pass = 0;
 	while (bindle->meals < bindle->max_meals || bindle->max_meals == -1)
 	{
-		pthread_mutex_lock(bindle->fork_state_lock1);
-		pthread_mutex_lock(bindle->fork_state_lock2);
-		if (*(bindle->fork_state1) >= 0 && *(bindle->fork_state2) >= 0
-			&& *(bindle->fork_state1) != bindle->id
-			&& *(bindle->fork_state2) != bindle->id)
-		{
-			*(bindle->fork_state1) = -bindle->id;
-			*(bindle->fork_state2) = -bindle->id;
-			green_pass = 1;
-		}
-		pthread_mutex_unlock(bindle->fork_state_lock2);
-		pthread_mutex_unlock(bindle->fork_state_lock1);
-		//_______________________________
-		calc_time(bindle);
+		green_pass = get_fork(bindle);
+		if (calc_time(bindle) && !green_pass)
+			return ;
 		if (green_pass)
 		{
-			//if (bindle->time > 0)
-			// if (bindle->time - bindle->countdown >=  bindle->die_time)
-			// 	bindle->countdown = bindle->time + bindle->die_time;
-			if (print_task2(bindle, "has taken a fork", GREEN)
-				|| print_task2(bindle, "has taken a fork", GREEN)
-				|| print_task2(bindle, "is_eating", GREEN))
-			{
-				pthread_mutex_lock(bindle->fork_state_lock1);
-				pthread_mutex_lock(bindle->fork_state_lock2);
-				*(bindle->fork_state1) = bindle->id;
-				*(bindle->fork_state2) = bindle->id;
-				pthread_mutex_unlock(bindle->fork_state_lock2);
-				pthread_mutex_unlock(bindle->fork_state_lock1);
-				break ;
-			}
-			my_sleep(bindle->eat_time, bindle);
-			calc_time(bindle);
-			bindle->countdown = bindle->time + bindle->die_time;
-			//--------------
-			pthread_mutex_lock(bindle->fork_state_lock1);
-			pthread_mutex_lock(bindle->fork_state_lock2);
-			*(bindle->fork_state1) = bindle->id;
-			*(bindle->fork_state2) = bindle->id;
-			green_pass = 0;
-			pthread_mutex_unlock(bindle->fork_state_lock2);
-			pthread_mutex_unlock(bindle->fork_state_lock1);
-			//--------------
+			if (eat(bindle))
+				return ;
+			leave_fork(bindle, bindle->id);
 			calc_time(bindle);
 			if (print_task2(bindle, "is sleeping", CYAN))
 				break ;
 			my_sleep(bindle->sleep_time, bindle);
-			//----------------
 			calc_time(bindle);
 			if (print_task2(bindle, "is thinking", BLUE))
 				break ;
-			// if (bindle->eat_time * (bindle->type - 1) > bindle->sleep_time)
-			// 	my_sleep(bindle->eat_time * (bindle->type - 1) - bindle->sleep_time - 1000, bindle);
 			++(bindle->meals);
 		}
 		else
@@ -119,8 +99,12 @@ void	*life_cycle2(void *bag)
 	gettimeofday(&(bindle->end), NULL);
 	usleep(200000 - time_diff(&(bindle->end), &(bindle->start)));
 	gettimeofday(&(bindle->start), NULL);
+	if (bindle->fork_state_lock1 == bindle->fork_state_lock2)
+	{
+		my_sleep(bindle->die_time + 20, bindle);
+		return (NULL);
+	}
 	if (!my_sleep(bindle->eat_time * (bindle->id % bindle->type), bindle))
 		loopy_philo(bindle);
-	//ft_printf("i am %d\n", bindle->id);
 	return (NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:47:53 by ayassin           #+#    #+#             */
-/*   Updated: 2022/06/25 20:31:06 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/07/28 18:17:50 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,32 +53,47 @@ int	print_task2(t_bindle *bag, char *task, char *color)
 	else if ((int) bag->time < 0)
 	{
 		*(bag->death) = 1;
-		ft_printf("%s%d %d %s\n%s", RED, -bag->time / 1000, bag->id, "is dead", RESET_COLOR);
+		printf("%s%ld %d %s\n%s",
+			RED, -bag->time / 1000, bag->id, "is dead", RESET_COLOR);
 		death = 1;
 	}
 	else
-		printf("%s%ld %d %s\n%s", color, bag->time / 1000, bag->id, task, RESET_COLOR);
+		printf("%s%ld %d %s\n%s",
+			color, bag->time / 1000, bag->id, task, RESET_COLOR);
 	pthread_mutex_unlock(bag->common_lock);
 	return (death);
 }
 
-// int	add_task(t_bindle *bag, char *task, char *color)
-// {
-// 	char	death;
+int	calc_time(t_bindle *bindle)
+{
+	gettimeofday(&(bindle->end), NULL);
+	if (bindle->time < 0)
+		return (print_task2(bindle, NULL, NULL));
+	bindle->time = time_diff(&(bindle->end), &(bindle->start));
+	if (bindle->time > bindle->countdown)
+	{
+		bindle->time *= -1;
+		return (print_task2(bindle, NULL, NULL));
+	}
+	return (0);
+}
 
-// 	death = 0;
-// 	pthread_mutex_lock(bag->common_lock);
-// 	if (*(bag->death) == 1)
-// 		death = 1;
-// 	else if ((int) bag->time < 0)
-// 	{
-// 		*(bag->death) = 1;
-// 		ft_lstadd_back()
-// 		ft_printf("%s%d %d %s\n%s", RED, -bag->time / 1000, bag->id, "is dead", RESET_COLOR);
-// 		death = 1;
-// 	}
-// 	else
-// 		printf("%s%ld %d %s\n%s", color, bag->time / 1000, bag->id, task, RESET_COLOR);
-// 	pthread_mutex_unlock(bag->common_lock);
-// 	return (death);
-// }
+int	my_sleep(int time_to_waste, t_bindle *bindle)
+{
+	struct timeval	now;
+	struct timeval	start;
+
+	if (time_to_waste == 0)
+		return (0);
+	gettimeofday(&start, NULL);
+	gettimeofday(&now, NULL);
+	while (time_diff(&now, &start) < time_to_waste)
+	{
+		usleep(50);
+		(void) bindle;
+		if (calc_time(bindle))
+			return (1);
+		gettimeofday(&now, NULL);
+	}
+	return (0);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:43 by ayassin           #+#    #+#             */
-/*   Updated: 2022/06/25 19:36:09 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/07/28 18:22:49 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,12 @@ int	creat_philos2(t_philos *stoa)
 	while (++i < stoa->pop)
 	{
 		initbindle(&(bindle[i]), stoa, i, false_start);
-		pthread_create(&(id[i]), NULL, life_cycle2, &(bindle[i]));
+		if (pthread_create(&(id[i]), NULL, life_cycle2, &(bindle[i])) != 0)
+		{
+			ft_printf("some poor soul died at birth\n");
+			stoa->death = 1;
+			stoa->pop = i;
+		}
 	}
 	i = 0;
 	while (i < stoa->pop)
@@ -89,11 +94,14 @@ int	main(int argv, char **argc)
 	stoa.no_of_meals = -1;
 	if (argv == 6)
 		stoa.no_of_meals = minitalk_atoi(argc[5], &valid_args);
-	if (valid_args == 0)
+	if (valid_args == 0 || stoa.time_to_die <= 0
+		|| stoa.time_to_eat <= 0 || stoa.time_to_sleep <=0)
 		clean_exit("Inavlid arguments\n");
+	if (stoa.pop == 0)
+		return (0);
 	if (stoa.time_to_die / stoa.time_to_eat < (2 + stoa.pop % 2)
 		|| (stoa.time_to_sleep + stoa.time_to_eat)
-		> stoa.time_to_die || stoa.pop < 2)
+		> stoa.time_to_die || stoa.pop < 1)
 		ft_printf("A philosopher will definitly die\n");
 	creat_philos2(&stoa);
 	return (0);
