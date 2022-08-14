@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:40 by ayassin           #+#    #+#             */
-/*   Updated: 2022/07/28 18:18:10 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/14 11:33:04 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 # include <stdint.h>
 # include <sys/time.h>
 # include <pthread.h>
-# include "libft/libft.h"
-# include "ft_printf/ft_printf.h"
+# include <stdlib.h>
 
 # ifndef PRINTF_COLORS
 #  define BLACK "\033[0;30m"
@@ -50,7 +49,6 @@ typedef struct s_bindle
 {
 	int				*fork_state1;
 	int				*fork_state2;
-	//char			*forks;
 	int				id;
 	int_fast64_t	countdown;
 	int_fast64_t	die_time;
@@ -63,8 +61,6 @@ typedef struct s_bindle
 	int				*death;
 	struct timeval	start;
 	struct timeval	end;
-	// pthread_mutex_t	*fork_lock1;
-	// pthread_mutex_t	*fork_lock2;
 	pthread_mutex_t	*fork_state_lock1;
 	pthread_mutex_t	*fork_state_lock2;
 	pthread_mutex_t	*common_lock;

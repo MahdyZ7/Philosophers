@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_life2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 08:45:04 by ayassin           #+#    #+#             */
-/*   Updated: 2022/07/28 18:28:45 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/14 22:53:09 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,8 @@ int	leave_fork(t_bindle *bindle, int fork_state)
 
 int	eat(t_bindle *bindle)
 {
-	if (print_task2(bindle, "has taken a fork", GREEN)
-		|| print_task2(bindle, "has taken a fork", GREEN)
-		|| print_task2(bindle, "is_eating", GREEN))
+	calc_time(bindle);
+	if (print_task2(bindle, NULL, GREEN))
 		return (leave_fork(bindle, 0));
 	my_sleep(bindle->eat_time, bindle);
 	calc_time(bindle);
@@ -94,17 +93,54 @@ void	loopy_philo(t_bindle *bindle)
 void	*life_cycle2(void *bag)
 {
 	t_bindle	*bindle;
+	// long		syncsleep;
 
 	bindle = bag;
-	gettimeofday(&(bindle->end), NULL);
-	usleep(200000 - time_diff(&(bindle->end), &(bindle->start)));
-	gettimeofday(&(bindle->start), NULL);
+	//gettimeofday(&(bindle->end), NULL);
+	// syncsleep = bindle->eat_time * (bindle->id % bindle->type)
+	// 	- time_diff(&(bindle->end), &(bindle->start));
 	if (bindle->fork_state_lock1 == bindle->fork_state_lock2)
 	{
 		my_sleep(bindle->die_time + 20, bindle);
 		return (NULL);
 	}
-	if (!my_sleep(bindle->eat_time * (bindle->id % bindle->type), bindle))
+	// if (syncsleep < 0)
+	// 	loopy_philo(bindle);
+	// else if (!my_sleep(syncsleep, bindle))
 		loopy_philo(bindle);
+	// pthread_mutex_lock(bindle->common_lock);
+	// //calc_time(bindle);
+	// printf("Time in s %ld Time in ms %ld\n", bindle->start.tv_sec,
+	// 	bindle->start.tv_usec);
+	// pthread_mutex_unlock(bindle->common_lock);
 	return (NULL);
 }
+
+// void	*life_cycle2(void *bag)
+// {
+// 	t_bindle	*bindle;
+// 	long		syncsleep;
+
+// 	bindle = bag;
+// 	gettimeofday(&(bindle->end), NULL);
+// 	syncsleep = bindle->eat_time * (bindle->id % bindle->type) - time_diff(&(bindle->end), &(bindle->start));
+// 	if (syncsleep >= 0)
+// 	{
+// 		usleep(syncsleep);
+// 		gettimeofday(&(bindle->start), NULL);
+// 	}
+// 	else if (syncsleep < 0)
+// 	{
+// 		gettimeofday(&(bindle->start), NULL);
+// 		//bindle->start.
+// 	}
+// 	gettimeofday(&(bindle->start), NULL);
+// 	if (bindle->fork_state_lock1 == bindle->fork_state_lock2)
+// 	{
+// 		my_sleep(bindle->die_time + 20, bindle);
+// 		return (NULL);
+// 	}
+// 	if (!my_sleep(bindle->eat_time * (bindle->id % bindle->type), bindle))
+// 		loopy_philo(bindle);
+// 	return (NULL);
+// }

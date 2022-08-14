@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:47:53 by ayassin           #+#    #+#             */
-/*   Updated: 2022/07/28 18:17:50 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/14 22:55:27 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ int	minitalk_atoi(char *str, int *valid_flag)
 int	print_task2(t_bindle *bag, char *task, char *color)
 {
 	char	death;
+	long	time;
 
 	death = 0;
+	time = bag->time / 1000;
 	pthread_mutex_lock(bag->common_lock);
 	if (*(bag->death) == 1)
 		death = 1;
@@ -54,12 +56,16 @@ int	print_task2(t_bindle *bag, char *task, char *color)
 	{
 		*(bag->death) = 1;
 		printf("%s%ld %d %s\n%s",
-			RED, -bag->time / 1000, bag->id, "is dead", RESET_COLOR);
+			RED, -time, bag->id, "died", RESET_COLOR);
 		death = 1;
 	}
-	else
+	else if (task)
 		printf("%s%ld %d %s\n%s",
-			color, bag->time / 1000, bag->id, task, RESET_COLOR);
+			color, time, bag->id, task, RESET_COLOR);
+	else
+		printf("%s%ld %d has taken a fork\n%ld %d has taken a fork\n%ld %d %s\n%s",
+			color, time, bag->id,  time, bag->id, time, bag->id,
+			"is eating", RESET_COLOR);
 	pthread_mutex_unlock(bag->common_lock);
 	return (death);
 }
