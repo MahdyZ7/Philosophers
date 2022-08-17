@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:43 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/14 11:33:30 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/17 13:27:39 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	clean_exit(t_philos *stoa, t_bindle	*bindle, pthread_t	*id, int err)
 	return (0);
 }
 
-int	initbindle(t_bindle *bindle, t_philos *stoa, int num, t_timeval *false_start)
+int	initbindle(t_bindle *bindle, t_philos *stoa, int num, t_timeval *start)
 {
 	bindle->id = num + 1;
 	bindle->max_meals = stoa->no_of_meals;
@@ -45,8 +45,8 @@ int	initbindle(t_bindle *bindle, t_philos *stoa, int num, t_timeval *false_start
 	bindle->eat_time = stoa->time_to_eat;
 	bindle->type = stoa->pop % 2 + 2;
 	bindle->common_lock = &(stoa->lock);
-	bindle->start.tv_sec = false_start->tv_sec;
-	bindle->start.tv_usec = false_start->tv_usec;
+	bindle->start.tv_sec = start->tv_sec;
+	bindle->start.tv_usec = start->tv_usec;
 	bindle->time = 0;
 	bindle->fork_state_lock1
 		= &(stoa->arrlock[((num + 1) & 0xfffe) % stoa->pop]);
@@ -58,18 +58,18 @@ int	initbindle(t_bindle *bindle, t_philos *stoa, int num, t_timeval *false_start
 	return (pthread_mutex_init(bindle->fork_state_lock1, NULL));
 }
 
-int	mintphilos(t_philos *stoa, t_bindle *bindle, t_timeval *srt, pthread_t *id)
+int	mintphilos(t_philos *stoa, t_bindle *bindle, pthread_t *id)
 {
-	int	i;
-	int	pop;
-	int err;
+	int			i;
+	int			err;
+	t_timeval	srt;
 
 	i = -1;
 	err = 0;
-	pop = stoa->pop; 
+	gettimeofday(&srt, NULL);
 	while (++i < stoa->pop)
 	{
-		err = initbindle(&(bindle[i]), stoa, i, srt);
+		err = initbindle(&(bindle[i]), stoa, i, &srt);
 		if (pthread_create(&(id[i]), NULL, life_cycle2, &(bindle[i])) != 0
 			|| err)
 		{
@@ -83,7 +83,7 @@ int	mintphilos(t_philos *stoa, t_bindle *bindle, t_timeval *srt, pthread_t *id)
 			return (i);
 		}
 	}
-	return (pop);
+	return (i);
 }
 
 int	creat_philos2(t_philos *stoa)
@@ -92,7 +92,6 @@ int	creat_philos2(t_philos *stoa)
 	int				pop;
 	pthread_t		*id;
 	t_bindle		*bindle;
-	struct timeval	false_start;
 
 	pop = stoa->pop;
 	i = pthread_mutex_init(&(stoa->lock), NULL);
@@ -102,8 +101,12 @@ int	creat_philos2(t_philos *stoa)
 	stoa->fork_state = (int *)malloc(sizeof(int) * stoa->pop);
 	if (!stoa->arrlock || !id || !bindle || !stoa->fork_state || i)
 		clean_exit(stoa, bindle, id, i + 1);
-	gettimeofday(&false_start, NULL);
-	pop = mintphilos(stoa, bindle, &false_start, id);
+	i = 0;
+	while (i < pop && !pthread_mutex_init(&((stoa->arrlock)[i]), NULL))
+		i++;
+	if (i != pop)
+		clean_exit(stoa, bindle, id, 2);
+	pop = mintphilos(stoa, bindle, id);
 	i = 0;
 	while (i < pop)
 		pthread_join(id[i++], NULL);
@@ -132,9 +135,9 @@ int	main(int argv, char **argc)
 		return (printf("Inavlid arguments\n") > 0);
 	if (stoa.pop == 0)
 		return (0);
-	if (stoa.time_to_die / stoa.time_to_eat <= (2 + stoa.pop % 2)
+	if (stoa.time_to_die <= (2 + stoa.pop % 2) * stoa.time_to_eat
 		|| (stoa.time_to_sleep + stoa.time_to_eat)
-		>= stoa.time_to_die || stoa.pop < 1)
+		>= stoa.time_to_die || stoa.pop <= 1)
 		printf("A philosopher will die\n");
 	creat_philos2(&stoa);
 	return (0);
