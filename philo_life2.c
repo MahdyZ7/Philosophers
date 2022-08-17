@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_life2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 08:45:04 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/17 18:38:10 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/18 00:22:42 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,16 +141,25 @@ void	*life_cycle2(void *bag)
 
 	bindle = bag;
 	gettimeofday(&(bindle->end), NULL);
-	syncsleep = bindle->eat_time * (bindle->id % bindle->type)
-		- time_diff(&(bindle->end), &(bindle->start));
+	syncsleep = bindle->die_time - time_diff(&(bindle->end), &(bindle->start));
+	// syncsleep = bindle->eat_time * (bindle->id % bindle->type)
+	// 	- time_diff(&(bindle->end), &(bindle->start));
+	if (syncsleep < 0)
+	{
+		pthread_mutex_lock(bindle->common_lock);
+		if (*(bindle->death) != 1)
+			printf("%sPhilosophers are not created fast enough\n%s", RED, RESET_COLOR);
+		pthread_mutex_unlock(bindle->common_lock);
+		*(bindle->death) = 1;
+		return (NULL);
+	}
 	if (bindle->fork_state_lock1 == bindle->fork_state_lock2)
 	{
 		my_sleep(bindle->die_time + 20, bindle);
 		return (NULL);
 	}
-	if (syncsleep <= 0)
-		loopy_philo(bindle);
-	else if (!my_sleep(syncsleep, bindle))
+	//gettimeofday(&(bindle->start), NULL);
+	if (!my_sleep(bindle->eat_time * (bindle->id % bindle->type), bindle))
 		loopy_philo(bindle);
 	// pthread_mutex_lock(bindle->common_lock);
 	// //calc_time(bindle);
