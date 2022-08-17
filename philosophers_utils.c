@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:47:53 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/14 22:55:27 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/17 18:16:19 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int	my_sleep(int time_to_waste, t_bindle *bindle)
 	while (time_diff(&now, &start) < time_to_waste)
 	{
 		usleep(50);
-		(void) bindle;
 		if (calc_time(bindle))
 			return (1);
 		gettimeofday(&now, NULL);

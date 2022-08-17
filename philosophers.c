@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:43 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/17 13:27:39 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/17 18:10:17 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	initbindle(t_bindle *bindle, t_philos *stoa, int num, t_timeval *start)
 	bindle->fork_state1 = &(stoa->fork_state[((num + 1) & 0xfffe) % stoa->pop]);
 	bindle->fork_state2 = &(stoa->fork_state[((num & 0xfffe) + 1) % stoa->pop]);
 	*(bindle->fork_state1) = 0;
-	return (pthread_mutex_init(bindle->fork_state_lock1, NULL));
+	return (0);
 }
 
 int	mintphilos(t_philos *stoa, t_bindle *bindle, pthread_t *id)
@@ -74,9 +74,9 @@ int	mintphilos(t_philos *stoa, t_bindle *bindle, pthread_t *id)
 			|| err)
 		{
 			pthread_mutex_lock(&(stoa->lock));
-			if (err)
+			if (err && !stoa->death)
 				printf("The fork state lock for %i failed", i);
-			else
+			else if (!stoa->death)
 				printf("The poor soul %i died at birth\n", i);
 			stoa->death = 1;
 			pthread_mutex_unlock(&(stoa->lock));
