@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:47:53 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/17 18:16:19 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/18 16:02:50 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ int	print_task2(t_bindle *bag, char *task, char *color)
 int	calc_time(t_bindle *bindle)
 {
 	gettimeofday(&(bindle->end), NULL);
+	bindle->time = time_diff(&(bindle->end), &(bindle->start));
 	if (bindle->time < 0)
 		return (print_task2(bindle, NULL, NULL));
-	bindle->time = time_diff(&(bindle->end), &(bindle->start));
-	if (bindle->time > bindle->countdown)
+	else if (bindle->time > bindle->countdown)
 	{
 		bindle->time *= -1;
 		return (print_task2(bindle, NULL, NULL));

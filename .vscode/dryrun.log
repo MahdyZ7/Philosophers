@@ -1,8 +1,8 @@
 make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/home/ayassin/ahmed_projects/Philosophers'
+make: Entering directory `/Users/ayassin/Documents/git files/Philosophers'
 gcc -Wall -Werror -Wextra -pthread -c philosophers.c -o philosophers.o
 gcc -Wall -Werror -Wextra -pthread -c philosophers_utils.c -o philosophers_utils.o
 gcc -Wall -Werror -Wextra -pthread -c philo_life2.c -o philo_life2.o
 gcc -Wall -Werror -Wextra -pthread philosophers.c philosophers_utils.c philo_life2.c -o philosophers
-make: Leaving directory '/home/ayassin/ahmed_projects/Philosophers'
+make: Leaving directory `/Users/ayassin/Documents/git files/Philosophers'
  

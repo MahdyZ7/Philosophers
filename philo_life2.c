@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_life2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 08:45:04 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/18 00:22:42 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/18 14:35:49 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,17 +149,18 @@ void	*life_cycle2(void *bag)
 		pthread_mutex_lock(bindle->common_lock);
 		if (*(bindle->death) != 1)
 			printf("%sPhilosophers are not created fast enough\n%s", RED, RESET_COLOR);
-		pthread_mutex_unlock(bindle->common_lock);
 		*(bindle->death) = 1;
+		pthread_mutex_unlock(bindle->common_lock);
 		return (NULL);
 	}
-	if (bindle->fork_state_lock1 == bindle->fork_state_lock2)
+	syncsleep = bindle->eat_time * (1 + bindle->id % bindle->type) - time_diff(&(bindle->end), &(bindle->start));
+	if (bindle->fork_state_lock1 == bindle->fork_state_lock2 || syncsleep < 0)
 	{
 		my_sleep(bindle->die_time + 20, bindle);
 		return (NULL);
 	}
-	//gettimeofday(&(bindle->start), NULL);
-	if (!my_sleep(bindle->eat_time * (bindle->id % bindle->type), bindle))
+	syncsleep = bindle->eat_time * (bindle->id % bindle->type) - time_diff(&(bindle->end), &(bindle->start));
+	if (!my_sleep(syncsleep, bindle))
 		loopy_philo(bindle);
 	// pthread_mutex_lock(bindle->common_lock);
 	// //calc_time(bindle);

@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:43 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/17 18:10:17 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/18 16:06:40 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,25 +64,25 @@ int	mintphilos(t_philos *stoa, t_bindle *bindle, pthread_t *id)
 	int			err;
 	t_timeval	srt;
 
-	i = -1;
+	i = 0;
 	err = 0;
 	gettimeofday(&srt, NULL);
-	while (++i < stoa->pop)
+	pthread_mutex_lock(&(stoa->lock));
+	while (i < stoa->pop && stoa->death != 1)
 	{
-		err = initbindle(&(bindle[i]), stoa, i, &srt);
+		initbindle(&(bindle[i]), stoa, i, &srt);
 		if (pthread_create(&(id[i]), NULL, life_cycle2, &(bindle[i])) != 0
 			|| err)
 		{
-			pthread_mutex_lock(&(stoa->lock));
-			if (err && !stoa->death)
-				printf("The fork state lock for %i failed", i);
-			else if (!stoa->death)
-				printf("The poor soul %i died at birth\n", i);
+			if (!stoa->death)
+				printf("Philosopher %i died at birth", i);
 			stoa->death = 1;
 			pthread_mutex_unlock(&(stoa->lock));
 			return (i);
 		}
+		++i;
 	}
+	pthread_mutex_unlock(&(stoa->lock));
 	return (i);
 }
 
@@ -103,7 +103,7 @@ int	creat_philos2(t_philos *stoa)
 		clean_exit(stoa, bindle, id, i + 1);
 	i = 0;
 	while (i < pop && !pthread_mutex_init(&((stoa->arrlock)[i]), NULL))
-		i++;
+		(stoa->fork_state)[i++] = 0;
 	if (i != pop)
 		clean_exit(stoa, bindle, id, 2);
 	pop = mintphilos(stoa, bindle, id);
