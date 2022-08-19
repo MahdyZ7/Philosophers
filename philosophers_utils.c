@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:47:53 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/18 16:02:50 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/19 12:28:20 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,22 @@ int	print_task2(t_bindle *bag, char *task, char *color)
 	death = 0;
 	time = bag->time / 1000;
 	pthread_mutex_lock(bag->common_lock);
-	if (*(bag->death) == 1)
+	if (*(bag->death) != 0)
 		death = 1;
 	else if ((int) bag->time < 0)
 	{
 		*(bag->death) = 1;
 		printf("%s%ld %d %s\n%s",
-			RED, -time, bag->id, "died", RESET_COLOR);
+			RED, -time, bag->id, "died", RST_COLOR);
 		death = 1;
 	}
 	else if (task)
 		printf("%s%ld %d %s\n%s",
-			color, time, bag->id, task, RESET_COLOR);
+			color, time, bag->id, task, RST_COLOR);
 	else
 		printf("%s%ld %d has taken a fork\n%ld %d has taken a fork\n%ld %d %s\n%s",
-			color, time, bag->id,  time, bag->id, time, bag->id,
-			"is eating", RESET_COLOR);
+			color, time, bag->id, time, bag->id, time, bag->id,
+			"is eating", RST_COLOR);
 	pthread_mutex_unlock(bag->common_lock);
 	return (death);
 }

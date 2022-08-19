@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:40 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/17 13:29:58 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/19 10:27:37 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 #  define PURPLE "\033[0;35m"
 #  define CYAN "\033[0;36m"
 #  define WHITE "\033[0;37m"
-#  define RESET_COLOR "\033[0m"
+#  define RST_COLOR "\033[0m"
 # endif
 
 typedef struct timeval	t_timeval;

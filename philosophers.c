@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:43 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/18 16:06:40 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/19 12:28:58 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,22 @@ int	initbindle(t_bindle *bindle, t_philos *stoa, int num, t_timeval *start)
 int	mintphilos(t_philos *stoa, t_bindle *bindle, pthread_t *id)
 {
 	int			i;
-	int			err;
 	t_timeval	srt;
 
-	i = 0;
-	err = 0;
+	i = -1;
 	gettimeofday(&srt, NULL);
 	pthread_mutex_lock(&(stoa->lock));
+	while (++i < stoa->pop)
+		initbindle(&(bindle[i]), stoa, i, &srt);
+	i = 0;
 	while (i < stoa->pop && stoa->death != 1)
 	{
-		initbindle(&(bindle[i]), stoa, i, &srt);
-		if (pthread_create(&(id[i]), NULL, life_cycle2, &(bindle[i])) != 0
-			|| err)
+		if (pthread_create(&(id[i]), NULL, life_cycle2, &(bindle[i])) != 0)
 		{
 			if (!stoa->death)
 				printf("Philosopher %i died at birth", i);
 			stoa->death = 1;
-			pthread_mutex_unlock(&(stoa->lock));
-			return (i);
+			break ;
 		}
 		++i;
 	}
@@ -131,7 +129,7 @@ int	main(int argv, char **argc)
 	if (argv == 6)
 		stoa.no_of_meals = minitalk_atoi(argc[5], &valid_args);
 	if (valid_args == 0 || stoa.time_to_die <= 0
-		|| stoa.time_to_eat <= 0 || stoa.time_to_sleep <=0)
+		|| stoa.time_to_eat <= 0 || stoa.time_to_sleep <= 0)
 		return (printf("Inavlid arguments\n") > 0);
 	if (stoa.pop == 0)
 		return (0);
