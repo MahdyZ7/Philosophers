@@ -6,20 +6,29 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 08:45:04 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/19 12:27:01 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/20 18:02:07 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 /* Assumptions
-1)	philo has to finish eating to extend his life span by
+1)	A young philo has to finish eating to extend his life span by
 time_to_die
 
 2) microseconds are not a rounding error, they are tracked
 even if they are not printed
+
+3) the fork state is tracked. The fork itself is fiction but just becuase it
+lives in our heads does not mean it is not real
 */
 
+/**
+ * @brief Check the fork state and update it if it is available 
+ * 
+ * @param bindle 
+ * @return int returns 1 if philo grabed fork, 0 otherwise
+ */
 int	get_fork(t_bindle *bindle)
 {
 	int	green_pass;
@@ -40,6 +49,13 @@ int	get_fork(t_bindle *bindle)
 	return (green_pass);
 }
 
+/**
+ * @brief Leave fork by changing fork state
+ * 
+ * @param bindle 
+ * @param fork_state 
+ * @return int 
+ */
 int	leave_fork(t_bindle *bindle, int fork_state)
 {
 	pthread_mutex_lock(bindle->fork_state_lock1);
