@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:43 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/19 12:28:58 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/19 18:36:57 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	mintphilos(t_philos *stoa, t_bindle *bindle, pthread_t *id)
 		if (pthread_create(&(id[i]), NULL, life_cycle2, &(bindle[i])) != 0)
 		{
 			if (!stoa->death)
-				printf("Philosopher %i died at birth", i);
+				printf("Philosopher %i died at birth\n", i);
 			stoa->death = 1;
 			break ;
 		}
@@ -84,6 +84,12 @@ int	mintphilos(t_philos *stoa, t_bindle *bindle, pthread_t *id)
 	return (i);
 }
 
+/**
+ * @brief 
+ * 
+ * @param stoa the house that has philosophers
+ * @return int not important
+ */
 int	creat_philos2(t_philos *stoa)
 {
 	int				i;
@@ -112,6 +118,13 @@ int	creat_philos2(t_philos *stoa)
 	return (0);
 }
 
+/**
+ * @brief atoi arguments and checks if they are valid
+ * 
+ * @param argv no. of args
+ * @param argc args
+ * @return int error no
+ */
 int	main(int argv, char **argc)
 {
 	t_philos	stoa;
@@ -133,9 +146,9 @@ int	main(int argv, char **argc)
 		return (printf("Inavlid arguments\n") > 0);
 	if (stoa.pop == 0)
 		return (0);
-	if (stoa.time_to_die <= (2 + stoa.pop % 2) * stoa.time_to_eat
+	if ((stoa.time_to_die <= (2 + stoa.pop % 2) * stoa.time_to_eat
 		|| (stoa.time_to_sleep + stoa.time_to_eat)
-		>= stoa.time_to_die || stoa.pop <= 1)
+		>= stoa.time_to_die || stoa.pop <= 1) && stoa.no_of_meals)
 		printf("A philosopher will die\n");
 	creat_philos2(&stoa);
 	return (0);
