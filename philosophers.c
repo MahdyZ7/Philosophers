@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:43 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/19 18:36:57 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/21 13:50:08 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,14 +141,15 @@ int	main(int argv, char **argc)
 	stoa.no_of_meals = -1;
 	if (argv == 6)
 		stoa.no_of_meals = minitalk_atoi(argc[5], &valid_args);
+	// printf("%lld %lld %lld \n",stoa.time_to_die, stoa.time_to_eat, stoa.time_to_sleep);
 	if (valid_args == 0 || stoa.time_to_die <= 0
 		|| stoa.time_to_eat <= 0 || stoa.time_to_sleep <= 0)
 		return (printf("Inavlid arguments\n") > 0);
 	if (stoa.pop == 0)
 		return (0);
 	if ((stoa.time_to_die <= (2 + stoa.pop % 2) * stoa.time_to_eat
-		|| (stoa.time_to_sleep + stoa.time_to_eat)
-		>= stoa.time_to_die || stoa.pop <= 1) && stoa.no_of_meals)
+			|| (stoa.time_to_sleep + stoa.time_to_eat)
+			>= stoa.time_to_die || stoa.pop <= 1) && stoa.no_of_meals)
 		printf("A philosopher will die\n");
 	creat_philos2(&stoa);
 	return (0);

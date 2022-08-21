@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:40 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/19 10:27:37 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/21 13:48:51 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		minitalk_atoi(char *str, int *valid_flag);
 int		print_task2(t_bindle *bag, char *task, char *color);
 int		calc_time(t_bindle *bindle);
 int		my_sleep(int time_to_waste, t_bindle *bindle);
-
+int		my_sleep2(int time_to_waste, t_bindle *bindle, t_timeval start);
 
 void	*life_cycle2(void *bindle);
 

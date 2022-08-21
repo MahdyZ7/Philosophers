@@ -6,14 +6,14 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 08:45:04 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/20 18:02:07 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/21 13:53:53 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 /* Assumptions
-1)	A young philo has to finish eating to extend his life span by
+1)	A young philo has to start eating to extend his life span by
 time_to_die
 
 2) microseconds are not a rounding error, they are tracked
@@ -24,7 +24,9 @@ lives in our heads does not mean it is not real
 */
 
 /**
- * @brief Check the fork state and update it if it is available 
+ * @brief Check the fork state and update it if it is available.
+ * fork_state should not be negive to be avaliable. the fork state should not be
+ * the same as the philo id (to prevent greedy philos)
  * 
  * @param bindle 
  * @return int returns 1 if philo grabed fork, 0 otherwise
@@ -53,8 +55,8 @@ int	get_fork(t_bindle *bindle)
  * @brief Leave fork by changing fork state
  * 
  * @param bindle 
- * @param fork_state 
- * @return int 
+ * @param fork_state the updated fork state will be (philo->id normally) 
+ * @return returns 1, stop philo thread at death
  */
 int	leave_fork(t_bindle *bindle, int fork_state)
 {
@@ -67,20 +69,43 @@ int	leave_fork(t_bindle *bindle, int fork_state)
 	return (1);
 }
 
+// atio and sleep times
+// modifiy atoi  by adding an argument
+/**
+ * @brief eating, print
+ * 
+ * @param bindle 
+ * @return int 
+ */
 int	eat(t_bindle *bindle)
 {
+	t_timeval	now;
+
 	calc_time(bindle);
+	gettimeofday(&now, NULL);
+	bindle->countdown = bindle->time + bindle->die_time;
 	if (print_task2(bindle, NULL, GREEN))
 		return (leave_fork(bindle, 0));
-	my_sleep(bindle->eat_time, bindle);
+	my_sleep2(bindle->eat_time, bindle, now);
 	calc_time(bindle);
-	bindle->countdown = bindle->time + bindle->die_time;
 	return (0);
 }
 
+// int	eat(t_bindle *bindle)
+// {
+// 	calc_time(bindle);
+// 	if (print_task2(bindle, NULL, GREEN))
+// 		return (leave_fork(bindle, 0));
+// 	my_sleep(bindle->eat_time, bindle);
+// 	calc_time(bindle);
+// 	bindle->countdown = bindle->time + bindle->die_time;
+// 	return (0);
+// }
+
 void	loopy_philo(t_bindle *bindle)
 {
-	char	green_pass;
+	char		green_pass;
+	t_timeval	now;
 
 	while (bindle->meals < bindle->max_meals || bindle->max_meals == -1)
 	{
@@ -91,9 +116,10 @@ void	loopy_philo(t_bindle *bindle)
 				return ;
 			leave_fork(bindle, bindle->id);
 			calc_time(bindle);
+			gettimeofday(&now, NULL);
 			if (print_task2(bindle, "is sleeping", CYAN))
 				break ;
-			my_sleep(bindle->sleep_time, bindle);
+			my_sleep2(bindle->sleep_time, bindle, now);
 			calc_time(bindle);
 			if (print_task2(bindle, "is thinking", BLUE))
 				break ;

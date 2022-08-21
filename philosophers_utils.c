@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:47:53 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/19 12:28:20 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/21 13:44:20 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	minitalk_atoi(char *str, int *valid_flag)
 		*valid_flag = 0;
 	while (*str >= '0' && *str <= '9' && *valid_flag)
 	{
-		num = num * 10 + *str - '0';
+		num = num * 10 + (*str - '0');
 		if (num >> 31)
 			*valid_flag = 0;
 		str++;
@@ -92,6 +92,23 @@ int	my_sleep(int time_to_waste, t_bindle *bindle)
 	if (time_to_waste == 0)
 		return (0);
 	gettimeofday(&start, NULL);
+	gettimeofday(&now, NULL);
+	while (time_diff(&now, &start) < time_to_waste)
+	{
+		usleep(50);
+		if (calc_time(bindle))
+			return (1);
+		gettimeofday(&now, NULL);
+	}
+	return (0);
+}
+
+int	my_sleep2(int time_to_waste, t_bindle *bindle, t_timeval start)
+{
+	struct timeval	now;
+
+	if (time_to_waste == 0)
+		return (0);
 	gettimeofday(&now, NULL);
 	while (time_diff(&now, &start) < time_to_waste)
 	{
