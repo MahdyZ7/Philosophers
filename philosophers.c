@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:43 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/21 13:50:08 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/22 15:07:38 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,21 +128,19 @@ int	creat_philos2(t_philos *stoa)
 int	main(int argv, char **argc)
 {
 	t_philos	stoa;
-	int			valid_args;
 
-	valid_args = 1;
 	if (argv < 5 || argv > 6)
 		return (printf("Wrong number of arguments\n") > 0);
-	stoa.pop = minitalk_atoi(argc[1], &valid_args);
-	stoa.time_to_die = minitalk_atoi(argc[2], &valid_args) * 1000;
-	stoa.time_to_eat = minitalk_atoi(argc[3], &valid_args) * 1000;
-	stoa.time_to_sleep = minitalk_atoi(argc[4], &valid_args) * 1000;
+	stoa.pop = philo_atoi(argc[1], 1);
+	stoa.time_to_die = philo_atoi(argc[2], 1000);
+	stoa.time_to_eat = philo_atoi(argc[3], 1000);
+	stoa.time_to_sleep = philo_atoi(argc[4], 1000);
 	stoa.death = 0;
-	stoa.no_of_meals = -1;
+	stoa.no_of_meals = -2;
 	if (argv == 6)
-		stoa.no_of_meals = minitalk_atoi(argc[5], &valid_args);
+		stoa.no_of_meals = philo_atoi(argc[5], 1);
 	// printf("%lld %lld %lld \n",stoa.time_to_die, stoa.time_to_eat, stoa.time_to_sleep);
-	if (valid_args == 0 || stoa.time_to_die <= 0
+	if (stoa.pop <= 0 || stoa.time_to_die <= 0 || stoa.no_of_meals == -1
 		|| stoa.time_to_eat <= 0 || stoa.time_to_sleep <= 0)
 		return (printf("Inavlid arguments\n") > 0);
 	if (stoa.pop == 0)

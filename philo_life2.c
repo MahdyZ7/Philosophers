@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 08:45:04 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/21 13:53:53 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/22 18:33:52 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 1)	A young philo has to start eating to extend his life span by
 time_to_die
 
-2) microseconds are not a rounding error, they are tracked
-even if they are not printed
+2) microseconds are a rounding error, they add up an contribute to the total time
 
 3) the fork state is tracked. The fork itself is fiction but just becuase it
 lives in our heads does not mean it is not real
@@ -91,23 +90,12 @@ int	eat(t_bindle *bindle)
 	return (0);
 }
 
-// int	eat(t_bindle *bindle)
-// {
-// 	calc_time(bindle);
-// 	if (print_task2(bindle, NULL, GREEN))
-// 		return (leave_fork(bindle, 0));
-// 	my_sleep(bindle->eat_time, bindle);
-// 	calc_time(bindle);
-// 	bindle->countdown = bindle->time + bindle->die_time;
-// 	return (0);
-// }
-
 void	loopy_philo(t_bindle *bindle)
 {
 	char		green_pass;
 	t_timeval	now;
 
-	while (bindle->meals < bindle->max_meals || bindle->max_meals == -1)
+	while (bindle->meals < bindle->max_meals || bindle->max_meals < 0)
 	{
 		green_pass = get_fork(bindle);
 		if (green_pass)
@@ -115,12 +103,10 @@ void	loopy_philo(t_bindle *bindle)
 			if (eat(bindle))
 				return ;
 			leave_fork(bindle, bindle->id);
-			calc_time(bindle);
 			gettimeofday(&now, NULL);
 			if (print_task2(bindle, "is sleeping", CYAN))
 				break ;
 			my_sleep2(bindle->sleep_time, bindle, now);
-			calc_time(bindle);
 			if (print_task2(bindle, "is thinking", BLUE))
 				break ;
 			++(bindle->meals);
@@ -132,31 +118,32 @@ void	loopy_philo(t_bindle *bindle)
 	}
 }
 
+/**
+ * @brief schedule the philos to start on thier life
+ * 
+ * @param bag bindle that has all the info of philo
+ * @return void* nothing
+ */
 void	*life_cycle2(void *bag)
 {
 	t_bindle	*bindle;
 	long		syncsleep;
+	t_timeval	now;
 
 	bindle = bag;
 	gettimeofday(&(bindle->end), NULL);
-	if (bindle->max_meals == 0)
+	if (bindle->max_meals == 0 || calc_time(bindle))
 		return (NULL);
-	syncsleep = bindle->die_time - time_diff(&(bindle->end), &(bindle->start));
-	if (syncsleep < 0)
-	{
-		calc_time(bindle);
-		return (NULL);
-	}
 	syncsleep = bindle->eat_time * (1 + bindle->id % bindle->type)
 		- time_diff(&(bindle->end), &(bindle->start));
 	if (bindle->fork_state_lock1 == bindle->fork_state_lock2 || syncsleep < 0)
 	{
-		my_sleep(bindle->die_time + 20, bindle);
+		gettimeofday(&now, NULL);
+		my_sleep2(bindle->die_time + 20, bindle, now);
 		return (NULL);
 	}
-	syncsleep = bindle->eat_time * (bindle->id % bindle->type)
-		- time_diff(&(bindle->end), &(bindle->start));
-	if (!my_sleep(syncsleep, bindle))
+	syncsleep = bindle->eat_time * (bindle->id % bindle->type);
+	if (!my_sleep2(syncsleep, bindle, bindle->start))
 		loopy_philo(bindle);
 	return (NULL);
 }

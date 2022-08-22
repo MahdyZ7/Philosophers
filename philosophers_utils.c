@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:47:53 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/21 13:44:20 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/22 18:18:21 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ long	time_diff(struct timeval *end, struct timeval *start)
 	return (time);
 }
 
-int	minitalk_atoi(char *str, int *valid_flag)
+long	philo_atoi(char *str, int factor)
 {
 	unsigned long	num;
 
@@ -29,17 +29,17 @@ int	minitalk_atoi(char *str, int *valid_flag)
 	if (*str == '+')
 		str++;
 	if (*str < '0' || *str > '9')
-		*valid_flag = 0;
-	while (*str >= '0' && *str <= '9' && *valid_flag)
+		return (-1);
+	while (*str >= '0' && *str <= '9')
 	{
 		num = num * 10 + (*str - '0');
 		if (num >> 31)
-			*valid_flag = 0;
+			return (-1);
 		str++;
 	}
 	if (*str)
-		*valid_flag = 0;
-	return (num);
+		return (-1);
+	return (num * factor);
 }
 
 int	print_task2(t_bindle *bag, char *task, char *color)
@@ -48,6 +48,9 @@ int	print_task2(t_bindle *bag, char *task, char *color)
 	long	time;
 
 	death = 0;
+	gettimeofday(&(bag->end), NULL);
+	if (task != NULL)
+		bag->time = time_diff(&(bag->end), &(bag->start));
 	time = bag->time / 1000;
 	pthread_mutex_lock(bag->common_lock);
 	if (*(bag->death) != 0)
@@ -55,13 +58,11 @@ int	print_task2(t_bindle *bag, char *task, char *color)
 	else if ((int) bag->time < 0)
 	{
 		*(bag->death) = 1;
-		printf("%s%ld %d %s\n%s",
-			RED, -time, bag->id, "died", RST_COLOR);
+		printf("%s%ld %d %s\n%s", RED, -time, bag->id, "died", RST_COLOR);
 		death = 1;
 	}
 	else if (task)
-		printf("%s%ld %d %s\n%s",
-			color, time, bag->id, task, RST_COLOR);
+		printf("%s%ld %d %s\n%s", color, time, bag->id, task, RST_COLOR);
 	else
 		printf("%s%ld %d has taken a fork\n%ld %d has taken a fork\n%ld %d %s\n%s",
 			color, time, bag->id, time, bag->id, time, bag->id,
@@ -80,25 +81,6 @@ int	calc_time(t_bindle *bindle)
 	{
 		bindle->time *= -1;
 		return (print_task2(bindle, NULL, NULL));
-	}
-	return (0);
-}
-
-int	my_sleep(int time_to_waste, t_bindle *bindle)
-{
-	struct timeval	now;
-	struct timeval	start;
-
-	if (time_to_waste == 0)
-		return (0);
-	gettimeofday(&start, NULL);
-	gettimeofday(&now, NULL);
-	while (time_diff(&now, &start) < time_to_waste)
-	{
-		usleep(50);
-		if (calc_time(bindle))
-			return (1);
-		gettimeofday(&now, NULL);
 	}
 	return (0);
 }
