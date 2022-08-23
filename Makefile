@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+         #
+#    By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/22 13:02:34 by ayassin           #+#    #+#              #
-#    Updated: 2022/08/14 11:31:21 by ayassin          ###   ########.fr        #
+#    Updated: 2022/08/23 16:08:33 by ayassin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philosophers
+NAME = philo
 
 HEADERS = philosophers.h
 

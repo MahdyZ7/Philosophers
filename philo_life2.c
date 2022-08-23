@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 08:45:04 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/22 18:33:52 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/23 16:07:12 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,78 @@ time_to_die
 
 3) the fork state is tracked. The fork itself is fiction but just becuase it
 lives in our heads does not mean it is not real
+
+4) printing statmets log the time an events happens, a print. The print
+is not the event.
 */
+
+void		*life_cycle2(void *bag);
+static void	loopy_philo(t_bindle *bindle);
+static int	eat(t_bindle *bindle);
+static int	get_fork(t_bindle *bindle);
+static int	leave_fork(t_bindle *bindle, int fork_state);
+
+/**
+ * @brief schedule the philos to start on thier life based on type
+ * 
+ * @param bag bindle that has all the info of philo
+ * @return nothing
+ */
+void	*life_cycle2(void *bag)
+{
+	t_bindle	*bindle;
+	long		syncsleep;
+	t_timeval	now;
+
+	bindle = bag;
+	gettimeofday(&(bindle->end), NULL);
+	if (bindle->max_meals == 0 || calc_time(bindle))
+		return (NULL);
+	if (bindle->fork_state_lock1 == bindle->fork_state_lock2)
+	{
+		gettimeofday(&now, NULL);
+		my_sleep2(bindle->die_time + 20, bindle, now);
+		return (NULL);
+	}
+	syncsleep = bindle->eat_time * (bindle->id % bindle->type);
+	if (!my_sleep2(syncsleep, bindle, bindle->start))
+		loopy_philo(bindle);
+	return (NULL);
+}
+
+/**
+ * @brief the main loop of philos eat, sleep , drink
+ * 
+ * @param bindle philo data bag
+ */
+static void	loopy_philo(t_bindle *bindle)
+{
+	char		green_pass;
+	t_timeval	now;
+
+	while (bindle->meals < bindle->max_meals || bindle->max_meals < 0)
+	{
+		green_pass = get_fork(bindle);
+		if (green_pass)
+		{
+			if (eat(bindle))
+				return ;
+			leave_fork(bindle, bindle->id);
+			gettimeofday(&now, NULL);
+			if (print_task2(bindle, "is sleeping", CYAN))
+				break ;
+			my_sleep2(bindle->sleep_time, bindle, now);
+			usleep(50);
+			if (print_task2(bindle, "is thinking", BLUE))
+				break ;
+			++(bindle->meals);
+		}
+		else if (calc_time(bindle))
+			return ;
+		else
+			usleep(100);
+	}
+}
 
 /**
  * @brief Check the fork state and update it if it is available.
@@ -30,7 +101,7 @@ lives in our heads does not mean it is not real
  * @param bindle 
  * @return int returns 1 if philo grabed fork, 0 otherwise
  */
-int	get_fork(t_bindle *bindle)
+static int	get_fork(t_bindle *bindle)
 {
 	int	green_pass;
 
@@ -50,33 +121,14 @@ int	get_fork(t_bindle *bindle)
 	return (green_pass);
 }
 
-/**
- * @brief Leave fork by changing fork state
- * 
- * @param bindle 
- * @param fork_state the updated fork state will be (philo->id normally) 
- * @return returns 1, stop philo thread at death
- */
-int	leave_fork(t_bindle *bindle, int fork_state)
-{
-	pthread_mutex_lock(bindle->fork_state_lock1);
-	pthread_mutex_lock(bindle->fork_state_lock2);
-	*(bindle->fork_state1) = fork_state;
-	*(bindle->fork_state2) = fork_state;
-	pthread_mutex_unlock(bindle->fork_state_lock2);
-	pthread_mutex_unlock(bindle->fork_state_lock1);
-	return (1);
-}
-
-// atio and sleep times
 // modifiy atoi  by adding an argument
 /**
- * @brief eating, print
+ * @brief eating, print that the philo has forks and is eating
  * 
  * @param bindle 
- * @return int 
+ * @return 1 if philo dies
  */
-int	eat(t_bindle *bindle)
+static int	eat(t_bindle *bindle)
 {
 	t_timeval	now;
 
@@ -90,60 +142,20 @@ int	eat(t_bindle *bindle)
 	return (0);
 }
 
-void	loopy_philo(t_bindle *bindle)
-{
-	char		green_pass;
-	t_timeval	now;
-
-	while (bindle->meals < bindle->max_meals || bindle->max_meals < 0)
-	{
-		green_pass = get_fork(bindle);
-		if (green_pass)
-		{
-			if (eat(bindle))
-				return ;
-			leave_fork(bindle, bindle->id);
-			gettimeofday(&now, NULL);
-			if (print_task2(bindle, "is sleeping", CYAN))
-				break ;
-			my_sleep2(bindle->sleep_time, bindle, now);
-			if (print_task2(bindle, "is thinking", BLUE))
-				break ;
-			++(bindle->meals);
-		}
-		else if (calc_time(bindle))
-			return ;
-		else
-			usleep(100);
-	}
-}
-
 /**
- * @brief schedule the philos to start on thier life
+ * @brief Leave fork by changing fork state
  * 
- * @param bag bindle that has all the info of philo
- * @return void* nothing
+ * @param bindle 
+ * @param fork_state the updated fork state will be (philo->id normally) 
+ * @return returns 1, stop philo thread at death
  */
-void	*life_cycle2(void *bag)
+static int	leave_fork(t_bindle *bindle, int fork_state)
 {
-	t_bindle	*bindle;
-	long		syncsleep;
-	t_timeval	now;
-
-	bindle = bag;
-	gettimeofday(&(bindle->end), NULL);
-	if (bindle->max_meals == 0 || calc_time(bindle))
-		return (NULL);
-	syncsleep = bindle->eat_time * (1 + bindle->id % bindle->type)
-		- time_diff(&(bindle->end), &(bindle->start));
-	if (bindle->fork_state_lock1 == bindle->fork_state_lock2 || syncsleep < 0)
-	{
-		gettimeofday(&now, NULL);
-		my_sleep2(bindle->die_time + 20, bindle, now);
-		return (NULL);
-	}
-	syncsleep = bindle->eat_time * (bindle->id % bindle->type);
-	if (!my_sleep2(syncsleep, bindle, bindle->start))
-		loopy_philo(bindle);
-	return (NULL);
+	pthread_mutex_lock(bindle->fork_state_lock1);
+	pthread_mutex_lock(bindle->fork_state_lock2);
+	*(bindle->fork_state1) = fork_state;
+	*(bindle->fork_state2) = fork_state;
+	pthread_mutex_unlock(bindle->fork_state_lock2);
+	pthread_mutex_unlock(bindle->fork_state_lock1);
+	return (1);
 }

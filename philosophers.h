@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:40 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/22 18:18:31 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/23 12:20:12 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_bindle
 	int				max_meals;
 	int				meals;
 	int				type;
-	long			time;
+	long long		time;
 	int				*death;
 	struct timeval	start;
 	struct timeval	end;
@@ -66,11 +66,11 @@ typedef struct s_bindle
 	pthread_mutex_t	*common_lock;
 }				t_bindle;
 
-long	time_diff(struct timeval *end, struct timeval *start);
-long	philo_atoi(char *str, int factor);
-int		print_task2(t_bindle *bag, char *task, char *color);
-int		calc_time(t_bindle *bindle);
-int		my_sleep2(int time_to_waste, t_bindle *bindle, t_timeval start);
+long long	time_diff(struct timeval *end, struct timeval *start);
+long		philo_atoi(char *str, int factor);
+int			print_task2(t_bindle *bag, char *task, char *color);
+int			calc_time(t_bindle *bindle);
+int			my_sleep2(int time_to_waste, t_bindle *bindle, t_timeval start);
 
 void	*life_cycle2(void *bindle);
 

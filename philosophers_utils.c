@@ -6,21 +6,35 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:47:53 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/22 18:18:21 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/23 16:02:10 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-long	time_diff(struct timeval *end, struct timeval *start)
+/**
+ * @brief calculate the time diffrence between end and start in microseconds
+ * 
+ * @param end time
+ * @param start time
+ * @return long long diffrence
+ */
+long long	time_diff(struct timeval *end, struct timeval *start)
 {
-	long	time;
+	long long	time;
 
-	time = (end->tv_sec - start->tv_sec) * 1000 * 1000;
+	time = ((long long) (end->tv_sec - start->tv_sec)) * 1000 * 1000;
 	time += (end->tv_usec - start->tv_usec);
 	return (time);
 }
 
+/**
+ * @brief atoi for philos project. turn string to ling
+ * 
+ * @param str number string that has to be an int
+ * @param factor magnitude multiplyer for number
+ * @return the number atoied or -1 if input is invalid
+ */
 long	philo_atoi(char *str, int factor)
 {
 	unsigned long	num;
@@ -42,6 +56,15 @@ long	philo_atoi(char *str, int factor)
 	return (num * factor);
 }
 
+/**
+ * @brief log when an event in a philo's life happens. mutex locked to prevent mixup.
+ * if time is negative the philo has died. if the death variable 
+ * 
+ * @param bag info about the philo
+ * @param task what the philo will do (NULL means die)
+ * @param color color of print statment
+ * @return 1 for death , 0 otherwise
+ */
 int	print_task2(t_bindle *bag, char *task, char *color)
 {
 	char	death;
@@ -71,13 +94,17 @@ int	print_task2(t_bindle *bag, char *task, char *color)
 	return (death);
 }
 
+/**
+ * @brief cacluate the time passed since the start or a project
+ * 
+ * @param bindle philo info
+ * @return 1 if philo is dead, 0 otherwise
+ */
 int	calc_time(t_bindle *bindle)
 {
 	gettimeofday(&(bindle->end), NULL);
 	bindle->time = time_diff(&(bindle->end), &(bindle->start));
-	if (bindle->time < 0)
-		return (print_task2(bindle, NULL, NULL));
-	else if (bindle->time > bindle->countdown)
+	if (bindle->time > bindle->countdown)
 	{
 		bindle->time *= -1;
 		return (print_task2(bindle, NULL, NULL));
@@ -85,6 +112,14 @@ int	calc_time(t_bindle *bindle)
 	return (0);
 }
 
+/**
+ * @brief sleep function for philos
+ * 
+ * @param time_to_waste how much time to waste
+ * @param bindle philo info
+ * @param start sudo start time for time wasting
+ * @return 1 if a philo dies, 0 otherwise
+ */
 int	my_sleep2(int time_to_waste, t_bindle *bindle, t_timeval start)
 {
 	struct timeval	now;
