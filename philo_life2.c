@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_life2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 08:45:04 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/23 16:07:12 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/23 19:04:13 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	*life_cycle2(void *bag)
 {
 	t_bindle	*bindle;
 	long		syncsleep;
-	t_timeval	now;
 
 	bindle = bag;
 	gettimeofday(&(bindle->end), NULL);
@@ -49,8 +48,7 @@ void	*life_cycle2(void *bag)
 		return (NULL);
 	if (bindle->fork_state_lock1 == bindle->fork_state_lock2)
 	{
-		gettimeofday(&now, NULL);
-		my_sleep2(bindle->die_time + 20, bindle, now);
+		my_sleep2(bindle->die_time + 20, bindle, bindle->start);
 		return (NULL);
 	}
 	syncsleep = bindle->eat_time * (bindle->id % bindle->type);
@@ -81,7 +79,6 @@ static void	loopy_philo(t_bindle *bindle)
 			if (print_task2(bindle, "is sleeping", CYAN))
 				break ;
 			my_sleep2(bindle->sleep_time, bindle, now);
-			usleep(50);
 			if (print_task2(bindle, "is thinking", BLUE))
 				break ;
 			++(bindle->meals);
