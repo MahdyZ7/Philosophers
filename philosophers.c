@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 14:22:43 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/22 15:07:38 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/23 16:30:57 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,6 @@ int	main(int argv, char **argc)
 	stoa.no_of_meals = -2;
 	if (argv == 6)
 		stoa.no_of_meals = philo_atoi(argc[5], 1);
-	// printf("%lld %lld %lld \n",stoa.time_to_die, stoa.time_to_eat, stoa.time_to_sleep);
 	if (stoa.pop <= 0 || stoa.time_to_die <= 0 || stoa.no_of_meals == -1
 		|| stoa.time_to_eat <= 0 || stoa.time_to_sleep <= 0)
 		return (printf("Inavlid arguments\n") > 0);

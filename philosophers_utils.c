@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:47:53 by ayassin           #+#    #+#             */
-/*   Updated: 2022/08/23 16:02:10 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/08/23 16:30:31 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ long long	time_diff(struct timeval *end, struct timeval *start)
 {
 	long long	time;
 
-	time = ((long long) (end->tv_sec - start->tv_sec)) * 1000 * 1000;
+	time = ((long long)(end->tv_sec - start->tv_sec)) * 1000 * 1000;
 	time += (end->tv_usec - start->tv_usec);
 	return (time);
 }
@@ -57,8 +57,8 @@ long	philo_atoi(char *str, int factor)
 }
 
 /**
- * @brief log when an event in a philo's life happens. mutex locked to prevent mixup.
- * if time is negative the philo has died. if the death variable 
+ * @brief log when an event in a philo's life happens. mutex locked to prevent 
+ * mixup. if time is negative the philo has died. if the death variable 
  * 
  * @param bag info about the philo
  * @param task what the philo will do (NULL means die)
